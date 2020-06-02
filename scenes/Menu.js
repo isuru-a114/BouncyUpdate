@@ -128,7 +128,7 @@ class Menu extends Phaser.Scene {
 
 
     update() {
-
+        
         if (Phaser.Input.Keyboard.JustDown(this.upArrow)) {
             // console.log("UP CLICK");
             this.changeMenuButtonWithArrowUp();

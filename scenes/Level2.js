@@ -56,11 +56,14 @@ class Level2 extends Phaser.Scene {
         levelText = this.add.text(game.config.width / 1.6, game.config.height / 25, 'LEVEL:1', { fontSize: '40px', fill: '#FFF' });
 
         this.score = score;
-        console.log("==============>level 2 score: " + score)
 
+        //ball
+        this.ball = this.physics.add.sprite(game.config.width * gameOptions.ballPosition, game.config.height / 4 * 3 - gameOptions.bounceHeight, "ball");
+        this.ball.displayHeight = game.config.height / 10;
+        this.ball.displayWidth = game.config.width / 10;
 
         //coin frame animation
-        this.coins = this.physics.add.sprite(160, 150, 'coins');
+        this.coins = this.physics.add.sprite(this.ball.x, 250, 'coins');
 
         // setting coin body as sensor. Will fire collision events without actually collide
         this.coins.body.isSensor = true;
@@ -81,11 +84,6 @@ class Level2 extends Phaser.Scene {
 
 
         this.platformGroup = this.physics.add.group();
-
-        //ball
-        this.ball = this.physics.add.sprite(game.config.width * gameOptions.ballPosition, game.config.height / 4 * 3 - gameOptions.bounceHeight, "ball");
-        this.ball.displayHeight = game.config.height / 10;
-        this.ball.displayWidth = game.config.width / 10;
 
         this.ball.body.gravity.y = gameOptions.ballGravity;
         // this.ball.setBounce(1);
@@ -111,7 +109,7 @@ class Level2 extends Phaser.Scene {
                 if (this.iscompleted == true) {
                     if (this.gotoNextLevel == true) {
                         localStorage.setItem("L1", "C");
-                        this.scene.start("Level3");
+                        this.scene.start("Level5");
                     } else {
                         this.gotoNextLevel = true;
 
@@ -178,7 +176,12 @@ class Level2 extends Phaser.Scene {
         this.scoreText = this.add.text(game.config.width / 16, game.config.height / 25, this.score, { fontSize: '40px', fill: '#FFF' });
         //this.updateScore(this.score);
         this.scoreText.setText('SCORE:' + this.score);
+
+        console.log(this.arr)
     }
+
+
+
     updateScore(inc) {
         this.score += inc;
         this.scoreText.text = "Score: " + this.score + "\nBest: " + this.topScore;
@@ -230,7 +233,7 @@ class Level2 extends Phaser.Scene {
     }
 
     checkGameWin() {
-        if (this.score >= 5 && this.isShowPass == true) {
+        if (this.score >= 100 && this.isShowPass == true) {
             // this.congrate = this.add.image(game.config.width / 2, game.config.height / 4, 'congrate');
             // this.congrate.displayHeight = game.config.height / 4;
             // this.congrate.displayWidth = game.config.width / 2;
@@ -250,7 +253,7 @@ class Level2 extends Phaser.Scene {
     isBallHitPlatform() {
         if (this.hitCount == 0) {
             if (this.iscompleted == false) {
-                this.updateScore(1);
+                this.updateScore(5);
             }
             this.arr = this.platformGroup.getChildren();
             this.isCorrectJump = false;

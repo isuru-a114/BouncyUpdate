@@ -19,6 +19,9 @@ class Level4 extends Phaser.Scene {
             frameWidth: 397,
             frameHeight: 216
         });
+        this.load.spritesheet('firework', 'assets/img/firework.png', { frameWidth: 250, frameHeight: 245 });
+        //sound
+        this.load.audio('groundsound', 'sounds/groundsound.wav');
     }
 
     // method to be executed once the scene has been created
@@ -26,6 +29,7 @@ class Level4 extends Phaser.Scene {
 
         this.hitCount = -1;
         this.nextPlatform = 1;
+        this.lastplatform = null;
         this.arr = [];
         this.iscompleted = false;
         this.gotoNextLevel = false;
@@ -48,8 +52,8 @@ class Level4 extends Phaser.Scene {
         this.score_btn.displayHeight = game.config.height / 10;
         this.score_btn.displayWidth = game.config.width / 2.4;
 
-        levelText = this.add.text(game.config.width / 1.6, game.config.height / 25, 'LEVEL:3', {
-            fontSize: '70px',
+        levelText = this.add.text(game.config.width / 1.6, game.config.height / 25, 'LEVEL:4', {
+            fontSize: '40px',
             fill: '#FFF'
         });
 
@@ -61,106 +65,109 @@ class Level4 extends Phaser.Scene {
         this.ball.displayWidth = game.config.width / 10;
 
         this.ball.body.gravity.y = gameOptions.ballGravity;
-        this.ball.setBounce(1);
+        // this.ball.setBounce(1);
         this.ball.body.checkCollision.down = true;
         this.ball.body.checkCollision.up = false;
         this.ball.body.checkCollision.left = false;
         this.ball.body.checkCollision.right = false;
-        this.ball.setSize(game.config.height / 20, game.config.width / 4, false)
+        this.ball.setSize(game.config.height / 5, game.config.width / 2, false)
         let platformX = this.ball.x;
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 200; i++) {
             let platform = this.platformGroup.create(platformX, game.config.height / 4 * 3 + Phaser.Math.Between(gameOptions.platformHeightRange[0], gameOptions.platformHeightRange[1]), "ground");
             platform.setOrigin(0.5, 1);
             platform.setImmovable(true);
             platform.displayWidth = Phaser.Math.Between(gameOptions.platformLengthRange[0], gameOptions.platformLengthRange[1]);
             platform.displayHeight = game.config.height / 15;
             platformX += Phaser.Math.Between(gameOptions.platformDistanceRangeLevel3[0], gameOptions.platformDistanceRangeLevel3[1]);
+            platform.setSize(game.config.height / 2, game.config.width / 2, false)
         }
 
         this.input.keyboard.on('keydown', function (e) {
-            //console.log(e)
             if (e.key == "Enter") {
                 //console.log("soft right key");
                 if (this.iscompleted == true) {
-                    if (this.gotoNextLevel == true) {
-                        this.scene.start("Level4")
-                    } else {
-                        // this.gotoNextLevel = true;
+                    localStorage.setItem("L4", "C");
+                    this.scene.start("Level4");
+                    /////
+                    // coin frame animation
+                    this.firework = this.physics.add.sprite(300, 290, 'firework');
+                    this.firework2 = this.physics.add.sprite(250, 250, 'firework');
+                    this.firework3 = this.physics.add.sprite(150, 200, 'firework');
 
-                        this.nextLevel = this.add.image(game.config.width / 2, game.config.height / 4 * 3, 'score');
-                        this.nextLevel.displayHeight = game.config.height / 10;
-                        this.nextLevel.displayWidth = game.config.width / 2.4;
-                        this.nextLevelText = this.add.text(game.config.width / 2, game.config.height / 4 * 3, 'Next Level', {
-                            fontSize: '50px',
-                            fill: '#FFF'
-                        }).setOrigin(0.5);
-                    }
+                    // setting coin body as sensor. Will fire collision events without actually collide
+                    this.firework.body.isSensor = true;
+                    this.firework2.body.isSensor = true;
+                    this.firework3.body.isSensor = true;
+
+                    //coinframe
+                    this.anims.create({
+                        key: 'fireworkRotate',
+                        repeat: -1,
+                        frameRate: 10,
+                        frames: this.anims.generateFrameNames('firework', { start: 1, end: 46 })
+                    });
+
+                    this.firework.play('fireworkRotate');
+                    this.firework.displayWidth = 250;
+                    this.firework.displayHeight = 250;
+                    this.firework.body.label = "firework";
+
+                    this.firework2.play('fireworkRotate');
+                    this.firework2.displayWidth = 250;
+                    this.firework2.displayHeight = 250;
+                    this.firework2.body.label = "firework";
+
+                    this.firework3.play('fireworkRotate');
+                    this.firework3.displayWidth = 250;
+                    this.firework3.displayHeight = 250;
+                    this.firework3.body.label = "firework";
+                    /////
                 } else {
-                    // this.tween.pause()
                     this.movePlatforms();
                 }
-
-                //this.hitCount = 0;
-
             }
         }, this);
 
         this.input.keyboard.on('keyup', function (e) {
-            // console.log(e)
             if (e.key == "Enter") {
-                //console.log("soft right key");
                 this.stopPlatforms();
                 this.hitCount = 0;
-
             }
         }, this);
 
-        this.input.on("pointerdown", this.movePlatforms, this);
-        this.input.on("pointerup", this.stopPlatforms, this);
         this.score = score;
         this.topScore = localStorage.getItem(gameOptions.localStorageName) == null ? 0 : localStorage.getItem(gameOptions.localStorageName);
         this.scoreText = this.add.text(game.config.width / 16, game.config.height / 25, this.score, {
-            fontSize: '70px',
+            fontSize: '40px',
             fill: '#FFF'
         });
         this.scoreText.setText('SCORE:' + this.score);
-        //this.updateScore(this.score);
-        this.arr = this.platformGroup.getChildren()
-        this.movePlatformHorizontaly(this.platformGroup.getChildren()[1])
+        this.arr = this.platformGroup.getChildren();
     }
 
     // method to be executed at each frame. Please notice the arguments.
     update() {
-        var isCollided = this.physics.overlap(this.platformGroup, this.ball, this.collision, null, this);
+        var isCollided = this.physics.overlap(this.platformGroup, this.ball, this.collision, null, this)
         this.checkGameOver();
     }
 
     collision() {
+        this.sound.play('groundsound');
         this.ball.setVelocityY(-700);
-        this.physics.world.collide(this.platformGroup, this.ball, null, function () {
-            if (this.hitCount == 0) {
-
-                this.platformGroup.getChildren().forEach(function (platform) {
-                    if (platform.getBounds().right < 0) {
-                        this.isCorrectJump = true;
-                        platform.x = this.getRightmostPlatform() + Phaser.Math.Between(gameOptions.platformDistanceRangeLevel3[0], gameOptions.platformDistanceRangeLevel3[1]);
-                        platform.displayWidth = Phaser.Math.Between(gameOptions.platformLengthRange[0], gameOptions.platformLengthRange[1]);
-                        this.arr.push(platform);
-                    }
-                }, this);
-                if (this.isCorrectJump == true) {
-                    this.isBallHitPlatform();
+        if (this.hitCount == 0) {
+            this.platformGroup.getChildren().forEach(function (platform) {
+                if (platform.getBounds().right < 0) {
+                    this.isCorrectJump = true;
+                    // platform.x = this.getRightmostPlatform() + Phaser.Math.Between(gameOptions.platformDistanceRange[0], gameOptions.platformDistanceRange[1]);
+                    // platform.displayWidth = Phaser.Math.Between(gameOptions.platformLengthRange[0], gameOptions.platformLengthRange[1]);
+                    // this.arr.push(platform)
                 }
-                else {
-                    //console.log("================>>"+this.tween.isPlaying())
-                    if (!this.tween.isPlaying()) {
-                        this.tween.resume()
-                    }
-
-                }
-                this.checkGameWin();
+            }, this);
+            if (this.isCorrectJump == true) {
+                this.isBallHitPlatform();
             }
-        }, this);
+            this.checkGameWin();
+        }
     }
 
     checkGameOver() {
@@ -170,7 +177,7 @@ class Level4 extends Phaser.Scene {
     }
 
     checkGameWin() {
-        if (this.score >= 20 && this.isShowPass == true) {
+        if (this.score >= 50 && this.isShowPass == true) {
             this.congrate = this.add.image(game.config.width / 2, game.config.height / 4, 'congrate');
             this.congrate.displayHeight = game.config.height / 4;
             this.congrate.displayWidth = game.config.width / 2;
@@ -190,13 +197,15 @@ class Level4 extends Phaser.Scene {
     isBallHitPlatform() {
         if (this.hitCount == 0) {
             if (this.iscompleted == false) {
-                this.updateScore(1);
+                this.updateScore(5);
             }
-            this.arr = this.platformGroup.getChildren()
+            // this.arr = this.platformGroup.getChildren()
             this.isCorrectJump = false;
             this.nextPlatform++;
             this.hitCount++;
         }
+        this.count++;
+        this.breakGround(this.arr[this.count]);
     }
 
     // update the score
@@ -205,14 +214,8 @@ class Level4 extends Phaser.Scene {
         this.scoreText.text = "Score: " + this.score + "\nBest: " + this.topScore;
         this.scoreText.setText('SCORE:' + this.score);
 
-        console.log("==============>>getLength :" + this.platformGroup.getLength())
-        console.log(this.platformGroup.getChildren());
         this.platformGroup.remove(this.platformGroup.getChildren()[0])
-        console.log("==============")
-        console.log("==============>>getLength :" + this.platformGroup.getLength())
-        console.log(this.platformGroup.getChildren());
-
-        this.movePlatformHorizontaly(this.platformGroup.getChildren()[1])
+        // this.movePlatformHorizontaly(this.platformGroup.getChildren()[1])
     }
 
     movePlatforms() {
@@ -225,6 +228,7 @@ class Level4 extends Phaser.Scene {
 
     getRightmostPlatform() {
         let rightmostPlatform = 0;
+        var last = null
         this.platformGroup.getChildren().forEach(function (platform) {
             rightmostPlatform = Math.max(rightmostPlatform, platform.x);
         });
@@ -237,8 +241,7 @@ class Level4 extends Phaser.Scene {
         this.scene.start("GameOver");
     }
 
-    movePlatformHorizontaly(platform) {
-        console.log("=============tween")
+    breakGround(platform) {
         this.timedEvent = this.time.addEvent({
             delay: 3000, callback: function () {
                 platform.setFrame(1);
@@ -290,8 +293,6 @@ class Level4 extends Phaser.Scene {
         var originalX = platform.x
         while (true) {
             platform.setVelocityX(65);
-            // console.log("originalX: "+originalX);
-            // console.log("platform.x: "+platform.x);
             if (originalX > platform.x + 1000) {
                 //  console.log("inside");
                 platform.setVelocityX(0)
@@ -299,7 +300,6 @@ class Level4 extends Phaser.Scene {
             }
             originalX++;
         }
-        //platform.setVelocityX(0);
     }
 
     moveBackward(platform) {

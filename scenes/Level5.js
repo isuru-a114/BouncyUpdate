@@ -16,6 +16,10 @@ class Level5 extends Phaser.Scene {
         this.load.image("ball", "assets/img/ball.png");
         this.load.image("stars", "assets/img/stars.png");
         this.load.image("congrate", "assets/img/congratulation.png");
+        this.load.image("btn_next", "assets/img/NextLevel.png");
+        this.load.spritesheet('firework', 'assets/img/firework.png', { frameWidth: 250, frameHeight: 245 });
+        //sound
+        this.load.audio('groundsound', 'sounds/groundsound.wav');
     }
 
     // method to be executed once the scene has been created
@@ -80,10 +84,47 @@ class Level5 extends Phaser.Scene {
             if (e.key == "Enter") {
                 if (this.iscompleted == true) {
                     if (this.gotoNextLevel == true) {
-                        localStorage.setItem("L1", "C");
+                        localStorage.setItem("L2", "C");
                         this.scene.start("Level3");
                     } else {
                         this.gotoNextLevel = true;
+                        /////
+                        // coin frame animation
+                        this.firework = this.physics.add.sprite(300, 290, 'firework');
+                        this.firework2 = this.physics.add.sprite(250, 250, 'firework');
+                        this.firework3 = this.physics.add.sprite(150, 200, 'firework');
+
+                        // setting coin body as sensor. Will fire collision events without actually collide
+                        this.firework.body.isSensor = true;
+                        this.firework2.body.isSensor = true;
+                        this.firework3.body.isSensor = true;
+
+                        //coinframe
+                        this.anims.create({
+                            key: 'fireworkRotate',
+                            repeat: -1,
+                            frameRate: 10,
+                            frames: this.anims.generateFrameNames('firework', { start: 1, end: 46 })
+                        });
+
+                        this.firework.play('fireworkRotate');
+                        this.firework.displayWidth = 250;
+                        this.firework.displayHeight = 250;
+                        this.firework.body.label = "firework";
+
+                        this.firework2.play('fireworkRotate');
+                        this.firework2.displayWidth = 250;
+                        this.firework2.displayHeight = 250;
+                        this.firework2.body.label = "firework";
+
+                        this.firework3.play('fireworkRotate');
+                        this.firework3.displayWidth = 250;
+                        this.firework3.displayHeight = 250;
+                        this.firework3.body.label = "firework";
+                        /////
+                        this.nextLevel = this.add.image(game.config.width / 2, game.config.height / 4 * 3, 'btn_next');
+                        this.nextLevel.displayHeight = game.config.height / 10;
+                        this.nextLevel.displayWidth = game.config.width / 2.4;
                     }
                 } else {
                     this.movePlatforms();
@@ -136,6 +177,7 @@ class Level5 extends Phaser.Scene {
     }
 
     collision() {
+        this.sound.play('groundsound');
         this.ball.setVelocityY(-1000);
         if (this.hitCount == 0) {
             this.platformGroup.getChildren().forEach(function (platform) {
@@ -160,7 +202,7 @@ class Level5 extends Phaser.Scene {
     }
 
     checkGameWin() {
-        if (this.score >= 5 && this.isShowPass == true) {
+        if (this.score >= 10 && this.isShowPass == true) {
             // this.congrate = this.add.image(game.config.width / 2, game.config.height / 4, 'congrate');
             // this.congrate.displayHeight = game.config.height / 4;
             // this.congrate.displayWidth = game.config.width / 2;
@@ -180,7 +222,7 @@ class Level5 extends Phaser.Scene {
     isBallHitPlatform() {
         if (this.hitCount == 0) {
             if (this.iscompleted == false) {
-                this.updateScore(1);
+                this.updateScore(5);
             }
             this.arr = this.platformGroup.getChildren();
             this.isCorrectJump = false;
