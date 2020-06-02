@@ -12,7 +12,26 @@ class IntroductionScene extends Phaser.Scene {
     }
 
     create() {
+        //
+        this.events.on('transitionstart', function (fromScene, duration) {
+            this.cameras.main.setZoom(0.001);
+        }, this);
 
+        this.events.on('transitioncomplete', function (fromScene, duration) {
+            // this.cameras.main.zoomTo(1, 300);
+            this.cameras.main.zoomTo(1, 300);
+        }, this);
+
+        // this.events.on('transitioncomplete', function (fromScene) {
+
+        // });
+
+        this.events.on('transitionout', function (toScene, duration) {
+
+            this.cameras.main.zoomTo(0.05, 300);
+
+        }, this);
+        //
         this.input.keyboard.on('keyup', function (e) {
             if (e.key == "SoftRight") {
                 //console.log("soft right key");
@@ -126,7 +145,12 @@ class IntroductionScene extends Phaser.Scene {
 
     goBackScene() {
         //console.log("clicked")
-        this.scene.start("Menu");
+        this.scene.transition({
+            target: "Menu",
+            moveAbove: true,
+            duration: 300,
+        })
+        // this.scene.start("Menu");
     }
 
 

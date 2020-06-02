@@ -1,15 +1,35 @@
 class ContactScene extends Phaser.Scene {
 
     constructor() {
-        super({key: "ContactScene", active: false});
+        super({ key: "ContactScene", active: false });
     }
 
-    preload(){
+    preload() {
         this.load.image("bgcontact", "assets/img/Contact.png");
     }
 
-    create(){
-        this.image = this.add.image(game.config.width/2, game.config.height/2, 'bgcontact');
+    create() {
+        //
+        this.events.on('transitionstart', function (fromScene, duration) {
+            this.cameras.main.setZoom(0.001);
+        }, this);
+
+        this.events.on('transitioncomplete', function (fromScene, duration) {
+            // this.cameras.main.zoomTo(1, 300);
+            this.cameras.main.zoomTo(1, 300);
+        }, this);
+
+        // this.events.on('transitioncomplete', function (fromScene) {
+
+        // });
+
+        this.events.on('transitionout', function (toScene, duration) {
+
+            this.cameras.main.zoomTo(0.05, 300);
+
+        }, this);
+        //
+        this.image = this.add.image(game.config.width / 2, game.config.height / 2, 'bgcontact');
         this.image.displayHeight = game.config.height;
         this.image.displayWidth = game.config.width;
 
@@ -27,7 +47,7 @@ class ContactScene extends Phaser.Scene {
         //this.kaios = this.add.text(game.config.width/2, game.config.height/1.2, "KaiOS ", {font: "80px Impact", color: "#ffffff"});
         //this.kaios.setOrigin(0.5);
 
-        this.goBack = this.add.text(game.config.width - game.config.width*8/100, game.config.height - game.config.height*5/100, "Back").setFontSize(30).setFontFamily("Arial").setOrigin(0.5);
+        this.goBack = this.add.text(game.config.width - game.config.width * 8 / 100, game.config.height - game.config.height * 5 / 100, "Back").setFontSize(30).setFontFamily("Arial").setOrigin(0.5);
 
         this.input.keyboard.on('keyup', function (e) {
             if (e.key == "SoftRight" || e.key == "Backspace") {
@@ -38,11 +58,11 @@ class ContactScene extends Phaser.Scene {
 
 
         this.back_space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.BACKSPACE);
-       // this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+        // this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
     }
 
-    update(){
+    update() {
         // if (Phaser.Input.Keyboard.JustDown(this.back_space)) {
         //     //console.log("back CLICK");
         //     this.goBackScene();
@@ -54,8 +74,13 @@ class ContactScene extends Phaser.Scene {
     }
 
 
-    goBackScene(){
+    goBackScene() {
         //console.log("clicked")
-        this.scene.start("Menu");
+        this.scene.transition({
+            target: "Menu",
+            moveAbove: true,
+            duration: 300,
+        })
+        // this.scene.start("Menu");
     }
 }

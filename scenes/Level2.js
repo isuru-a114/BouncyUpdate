@@ -19,7 +19,7 @@ class Level2 extends Phaser.Scene {
         this.load.image("btn_next", "assets/img/NextLevel.png");
 
         //coin
-        this.load.spritesheet('coins', 'assets/img/coin.png', { frameWidth: 400, frameHeight: 400 });
+        // this.load.spritesheet('coins', 'assets/img/coin.png', { frameWidth: 400, frameHeight: 400 });
         this.load.spritesheet('firework', 'assets/img/firework.png', { frameWidth: 250, frameHeight: 245 });
 
         //sound
@@ -28,6 +28,27 @@ class Level2 extends Phaser.Scene {
 
     // method to be executed once the scene has been created
     create() {
+
+        //
+        this.events.on('transitionstart', function (fromScene, duration) {
+            this.cameras.main.setZoom(0.001);
+        }, this);
+
+        this.events.on('transitioncomplete', function (fromScene, duration) {
+            // this.cameras.main.zoomTo(1, 300);
+            this.cameras.main.zoomTo(1, 300);
+        }, this);
+
+        // this.events.on('transitioncomplete', function (fromScene) {
+
+        // });
+
+        this.events.on('transitionout', function (toScene, duration) {
+
+            this.cameras.main.zoomTo(0.05, 300);
+
+        }, this);
+        //
 
         this.hitCount = -1;
         this.nextPlatform = 1;
@@ -62,25 +83,25 @@ class Level2 extends Phaser.Scene {
         this.ball.displayHeight = game.config.height / 10;
         this.ball.displayWidth = game.config.width / 10;
 
-        //coin frame animation
-        this.coins = this.physics.add.sprite(this.ball.x, 250, 'coins');
+        // //coin frame animation
+        // this.coins = this.physics.add.sprite(this.ball.x, 250, 'coins');
 
-        // setting coin body as sensor. Will fire collision events without actually collide
-        this.coins.body.isSensor = true;
+        // // setting coin body as sensor. Will fire collision events without actually collide
+        // this.coins.body.isSensor = true;
 
-        //coinframe
-        this.anims.create({
-            key: 'coinRotate',
-            repeat: -1,
-            frameRate: 7,
-            frames: this.anims.generateFrameNames('coins', { start: 1, end: 10 })
-        });
+        // //coinframe
+        // this.anims.create({
+        //     key: 'coinRotate',
+        //     repeat: -1,
+        //     frameRate: 7,
+        //     frames: this.anims.generateFrameNames('coins', { start: 1, end: 10 })
+        // });
 
-        this.coins.play('coinRotate');
-        this.coins.displayWidth = 70;
-        this.coins.displayHeight = 70;
-        this.coins.body.label = "coins";
-        // this.coins.setStatic(true);
+        // this.coins.play('coinRotate');
+        // this.coins.displayWidth = 70;
+        // this.coins.displayHeight = 70;
+        // this.coins.body.label = "coins";
+        // // this.coins.setStatic(true);
 
 
         this.platformGroup = this.physics.add.group();
@@ -233,7 +254,7 @@ class Level2 extends Phaser.Scene {
     }
 
     checkGameWin() {
-        if (this.score >= 100 && this.isShowPass == true) {
+        if (this.score >= 30 && this.isShowPass == true) {
             // this.congrate = this.add.image(game.config.width / 2, game.config.height / 4, 'congrate');
             // this.congrate.displayHeight = game.config.height / 4;
             // this.congrate.displayWidth = game.config.width / 2;

@@ -27,7 +27,26 @@ class SelectLevel extends Phaser.Scene {
     }
 
     create() {
+        //
+        this.events.on('transitionstart', function (fromScene, duration) {
+            this.cameras.main.setZoom(0.001);
+        }, this);
 
+        this.events.on('transitioncomplete', function (fromScene, duration) {
+            // this.cameras.main.zoomTo(1, 300);
+            this.cameras.main.zoomTo(1, 300);
+        }, this);
+
+        // this.events.on('transitioncomplete', function (fromScene) {
+
+        // });
+
+        this.events.on('transitionout', function (toScene, duration) {
+
+            this.cameras.main.zoomTo(0.05, 300);
+
+        }, this);
+        //
         this.image = this.add.image(game.config.width / 2, game.config.height / 2, 'bgSL');
         this.image.displayHeight = game.config.height;
         this.image.displayWidth = game.config.width;
@@ -159,12 +178,12 @@ class SelectLevel extends Phaser.Scene {
     }
 
     goToMenu() {
-        this.scene.start('Menu');
-    }
-
-
-    goToOptionScene() {
-        this.scene.start('OptionScene');
+        this.scene.transition({
+            target: "Menu",
+            moveAbove: true,
+            duration: 300,
+        })
+        // this.scene.start('Menu');
     }
 
     changeMenuButtonWithArrowDown() {
@@ -333,20 +352,40 @@ class SelectLevel extends Phaser.Scene {
             case "Play":
                 //console.log("Play SELECT");
                 localStorage.setItem(gameOptions.currentLevel, 0);
-                this.scene.start("Level2")
+                this.scene.transition({
+                    target: "Level2",
+                    moveAbove: true,
+                    duration: 300,
+                })
+                // this.scene.start("Level2")
                 break;
             case "ScoreScene":
                 //console.log("ScoreScene SELECT");
-                this.scene.start("Level5")
+                this.scene.transition({
+                    target: "Level5",
+                    moveAbove: true,
+                    duration: 300,
+                })
+                // this.scene.start("Level5")
                 break;
             case "Help":
                 //console.log("Option SELECT");
-                this.scene.start("Level3")
+                this.scene.transition({
+                    target: "Level3",
+                    moveAbove: true,
+                    duration: 300,
+                })
+                // this.scene.start("Level3")
                 break;
             case "Level4":
                 //console.log("Exit SELECT");
                 //this.scene.stop();
-                this.scene.start("Level4")
+                this.scene.transition({
+                    target: "Level4",
+                    moveAbove: true,
+                    duration: 300,
+                })
+                // this.scene.start("Level4")
                 break;
             default:
 

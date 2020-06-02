@@ -23,7 +23,26 @@ class Level3 extends Phaser.Scene {
 
     // method to be executed once the scene has been created
     create() {
+        //
+        this.events.on('transitionstart', function (fromScene, duration) {
+            this.cameras.main.setZoom(0.001);
+        }, this);
 
+        this.events.on('transitioncomplete', function (fromScene, duration) {
+            // this.cameras.main.zoomTo(1, 300);
+            this.cameras.main.zoomTo(1, 300);
+        }, this);
+
+        // this.events.on('transitioncomplete', function (fromScene) {
+
+        // });
+
+        this.events.on('transitionout', function (toScene, duration) {
+
+            this.cameras.main.zoomTo(0.05, 300);
+
+        }, this);
+        //
         this.hitCount = -1;
         this.nextPlatform = 1;
         this.arr = [];
@@ -201,7 +220,7 @@ class Level3 extends Phaser.Scene {
     }
 
     checkGameWin() {
-        if (this.score >= 15 && this.isShowPass == true) {
+        if (this.score >= 90 && this.isShowPass == true) {
             score = this.score;
 
             this.iscompleted = true;

@@ -7,12 +7,31 @@ class HelpScene extends Phaser.Scene {
     preload() {
 
         this.load.image("bgIntro", "assets/img/Instructions.png");
-        this.load.image("bgLevels", "assets/img/levels.png");
+        this.load.image("bgLevels", "assets/img/Levels.png");
         this.load.image("bgGameControls", "assets/img/GameControls.png");
     }
 
     create() {
+        //
+        this.events.on('transitionstart', function (fromScene, duration) {
+            this.cameras.main.setZoom(0.001);
+        }, this);
 
+        this.events.on('transitioncomplete', function (fromScene, duration) {
+            // this.cameras.main.zoomTo(1, 300);
+            this.cameras.main.zoomTo(1, 300);
+        }, this);
+
+        // this.events.on('transitioncomplete', function (fromScene) {
+
+        // });
+
+        this.events.on('transitionout', function (toScene, duration) {
+
+            this.cameras.main.zoomTo(0.05, 300);
+
+        }, this);
+        //
         this.input.keyboard.on('keyup', function (e) {
             if (e.key == "SoftRight" || e.key == "Backspace") {
                 //console.log("soft right key");
@@ -121,7 +140,12 @@ class HelpScene extends Phaser.Scene {
 
     goBackScene() {
         //console.log("clicked")
-        this.scene.start("Menu");
+        this.scene.transition({
+            target: "Menu",
+            moveAbove: true,
+            duration: 300,
+          })
+        // this.scene.start("Menu");
     }
 
 

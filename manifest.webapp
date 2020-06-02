@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "name": "Pelota",
+  "name": "Bouncy",
   "launch_path": "/index.html",
   "description": "Click to make the ball jump. Pass through the walls when they are the same color.",
   "subtitle": "Make the ball match the wall",
@@ -39,7 +39,7 @@
   "fullscreen": "true",
   "locales": {
      "en-US": {
-      "name": "Pelota",
+      "name": "Bouncy",
       "subtitle": "Make the ball match the wall",
       "description": "Click to make the ball jump. Pass through the walls when they are the same color."
     }

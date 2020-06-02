@@ -32,6 +32,26 @@ class GameOver extends Phaser.Scene {
 
   create() {
 
+    //
+    this.events.on('transitionstart', function (fromScene, duration) {
+      this.cameras.main.setZoom(0.001);
+    }, this);
+
+    this.events.on('transitioncomplete', function (fromScene, duration) {
+      // this.cameras.main.zoomTo(1, 300);
+      this.cameras.main.zoomTo(1, 300);
+    }, this);
+
+    // this.events.on('transitioncomplete', function (fromScene) {
+
+    // });
+
+    this.events.on('transitionout', function (toScene, duration) {
+
+      this.cameras.main.zoomTo(0.05, 300);
+
+    }, this);
+    //
     this.image = this.add.image(game.config.width / 2, game.config.height / 2, 'bgGameOver');
     this.image.displayHeight = game.config.height;
     this.image.displayWidth = game.config.width;
@@ -248,16 +268,29 @@ class GameOver extends Phaser.Scene {
       case "Restart":
         //console.log("Restart SELECT");
         this.reStoreGameLevelValues();
-        this.scene.start("SelectLevel");
-
+        this.scene.transition({
+          target: "SelectLevel",
+          moveAbove: true,
+          duration: 300,
+        })
         break;
       case "Menu":
         //console.log("Menu SELECT");
-        this.scene.start("Menu")
+        this.scene.transition({
+          target: "Menu",
+          moveAbove: true,
+          duration: 300,
+        })
+        // this.scene.start("Menu")
         break;
       case "Exit":
         //console.log("Exit SELECT");
-        this.scene.start("Menu")
+        this.scene.transition({
+          target: "Menu",
+          moveAbove: true,
+          duration: 300,
+        })
+        // this.scene.start("Menu")
         break;
       default:
 
