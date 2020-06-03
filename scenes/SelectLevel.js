@@ -94,8 +94,8 @@ class SelectLevel extends Phaser.Scene {
 
         // Button PLay
         this.btn_play = this.add.sprite(game.config.width / 2, (game.config.height / 13) * 2.8, 'btn_Level1', 0).setInteractive();
-        this.btn_play.displayHeight = game.config.height / 7.5;
-        this.btn_play.displayWidth = game.config.width / 2.1;
+        this.btn_play.displayHeight = game.config.height / 7;
+        this.btn_play.displayWidth = game.config.width / 2;
 
         // Button Score
         if (localStorage.getItem('L1') == "C") {
@@ -200,8 +200,8 @@ class SelectLevel extends Phaser.Scene {
                     this.btn_score.destroy();
                     //leve2 hover
                     this.btn_score = this.add.sprite(game.config.width / 2, (game.config.height / 9) * 3.7, 'btn_Leve2', 0).setInteractive();
-                    this.btn_score.displayHeight = game.config.height / 7.5;
-                    this.btn_score.displayWidth = game.config.width / 2.1;
+                    this.btn_score.displayHeight = game.config.height / 7;
+                    this.btn_score.displayWidth = game.config.width / 2;
 
                     this.selected_button = "ScoreScene"
                 }
@@ -217,8 +217,8 @@ class SelectLevel extends Phaser.Scene {
                     this.btn_help.destroy();
                     //leve3 hover
                     this.btn_help = this.add.sprite(game.config.width / 2, (game.config.height / 7.9) * 4.7, 'btn_Level3', 0).setInteractive();
-                    this.btn_help.displayHeight = game.config.height / 7.5;
-                    this.btn_help.displayWidth = game.config.width / 2.1;
+                    this.btn_help.displayHeight = game.config.height / 7;
+                    this.btn_help.displayWidth = game.config.width / 2;
 
                     this.selected_button = "Help"
                 }
@@ -233,8 +233,8 @@ class SelectLevel extends Phaser.Scene {
                     this.btn_leve4.destroy();
                     //level 4 hover
                     this.btn_leve4 = this.add.sprite(game.config.width / 2, (game.config.height / 6.45) * 5, 'btn_Level4', 0).setInteractive();
-                    this.btn_leve4.displayHeight = game.config.height / 7.5;
-                    this.btn_leve4.displayWidth = game.config.width / 2.1;
+                    this.btn_leve4.displayHeight = game.config.height / 7;
+                    this.btn_leve4.displayWidth = game.config.width / 2;
                     // this.btn_exit.destroy();
                     // this.btn_exit = this.add.sprite(game.config.width / 2, (game.config.height / 6) * 5, 'btn_exit_hover', 0).setInteractive();
                     // this.btn_exit.displayHeight = game.config.height / 9;
@@ -252,8 +252,8 @@ class SelectLevel extends Phaser.Scene {
 
                 this.btn_play.destroy();
                 this.btn_play = this.add.sprite(game.config.width / 2, (game.config.height / 13) * 2.8, 'btn_Level1', 0).setInteractive();
-                this.btn_play.displayHeight = game.config.height / 7.5;
-                this.btn_play.displayWidth = game.config.width / 2.1;
+                this.btn_play.displayHeight = game.config.height / 7;
+                this.btn_play.displayWidth = game.config.width / 2;
 
                 this.selected_button = "Play"
                 break;
@@ -276,8 +276,8 @@ class SelectLevel extends Phaser.Scene {
                     this.btn_leve4.destroy();
                     //level 4 hover
                     this.btn_leve4 = this.add.sprite(game.config.width / 2, (game.config.height / 6.45) * 5, 'btn_Level4', 0).setInteractive();
-                    this.btn_leve4.displayHeight = game.config.height / 7.5;
-                    this.btn_leve4.displayWidth = game.config.width / 2.1;
+                    this.btn_leve4.displayHeight = game.config.height / 7;
+                    this.btn_leve4.displayWidth = game.config.width / 2;
 
                     this.selected_button = "Level4"
                 }
@@ -292,8 +292,8 @@ class SelectLevel extends Phaser.Scene {
                     this.btn_help.destroy();
                     //level3 hover
                     this.btn_help = this.add.sprite(game.config.width / 2, (game.config.height / 7.9) * 4.7, 'btn_Level3', 0).setInteractive();
-                    this.btn_help.displayHeight = game.config.height / 7.5;
-                    this.btn_help.displayWidth = game.config.width / 2.1;
+                    this.btn_help.displayHeight = game.config.height / 7;
+                    this.btn_help.displayWidth = game.config.width / 2;
 
                     this.selected_button = "Help"
                 }
@@ -307,8 +307,8 @@ class SelectLevel extends Phaser.Scene {
 
                     this.btn_play.destroy();
                     this.btn_play = this.add.sprite(game.config.width / 2, (game.config.height / 13) * 2.8, 'btn_Level1', 0).setInteractive();
-                    this.btn_play.displayHeight = game.config.height / 7.5;
-                    this.btn_play.displayWidth = game.config.width / 2.1;
+                    this.btn_play.displayHeight = game.config.height / 7;
+                    this.btn_play.displayWidth = game.config.width / 2;
 
                     this.selected_button = "Play"
                 }
@@ -322,8 +322,8 @@ class SelectLevel extends Phaser.Scene {
                 this.btn_score.destroy();
                 //leve2 hover
                 this.btn_score = this.add.sprite(game.config.width / 2, (game.config.height / 9) * 3.7, 'btn_Leve2', 0).setInteractive();
-                this.btn_score.displayHeight = game.config.height / 7.5;
-                this.btn_score.displayWidth = game.config.width / 2.1;
+                this.btn_score.displayHeight = game.config.height / 7;
+                this.btn_score.displayWidth = game.config.width / 2;
                 // this.btn_score = this.add.sprite(game.config.width / 2, (game.config.height / 6) * 3.7, 'btn_score_hover', 0).setInteractive();
                 // this.btn_score.displayHeight = game.config.height / 8.9;
                 // this.btn_score.displayWidth = game.config.width / 2.8;
