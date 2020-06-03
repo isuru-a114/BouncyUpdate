@@ -85,7 +85,7 @@ window.onload = function () {
         physics: {
             default: 'arcade',
             arcade: {
-                debug: false,
+                debug: true,
                 gravity: {
                     y: 0 //the game gravity
                 }
@@ -97,14 +97,12 @@ window.onload = function () {
         scene: [Boot,
             ScoreScene,
             Preloader,
-            Options,
             Level1,
             Menu,
             SelectLevel,
             GameOver,
             HelpScene,
             ContactScene,
-            CountDown,
             Level2,
             Level3,
             Level4,

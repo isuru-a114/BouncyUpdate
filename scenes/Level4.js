@@ -98,7 +98,7 @@ class Level4 extends Phaser.Scene {
             platform.displayWidth = Phaser.Math.Between(gameOptions.platformLengthRange[0], gameOptions.platformLengthRange[1]);
             platform.displayHeight = game.config.height / 15;
             platformX += Phaser.Math.Between(gameOptions.platformDistanceRangeLevel3[0], gameOptions.platformDistanceRangeLevel3[1]);
-            platform.setSize(game.config.height / 2, game.config.width / 2, false)
+            platform.setSize(game.config.height / 2.5, game.config.width / 2, false)
         }
 
         this.input.keyboard.on('keydown', function (e) {
