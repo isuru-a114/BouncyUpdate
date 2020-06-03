@@ -19,11 +19,11 @@ class Level2 extends Phaser.Scene {
         this.load.image("btn_next", "assets/img/NextLevel.png");
 
         //coin
-        // this.load.spritesheet('coins', 'assets/img/coin.png', { frameWidth: 400, frameHeight: 400 });
+        this.load.spritesheet('coins', 'assets/img/coin.png', { frameWidth: 400, frameHeight: 400 });
         this.load.spritesheet('firework', 'assets/img/firework.png', { frameWidth: 250, frameHeight: 245 });
 
         //sound
-        this.load.audio('groundsound', 'sounds/groundsound.wav');
+        // this.load.audio('groundsound', 'sounds/groundsound.wav');
     }
 
     // method to be executed once the scene has been created
@@ -83,25 +83,25 @@ class Level2 extends Phaser.Scene {
         this.ball.displayHeight = game.config.height / 10;
         this.ball.displayWidth = game.config.width / 10;
 
-        // //coin frame animation
-        // this.coins = this.physics.add.sprite(this.ball.x, 250, 'coins');
+        //coin frame animation
+        this.coins = this.physics.add.sprite(250, 350, 'coins');
 
-        // // setting coin body as sensor. Will fire collision events without actually collide
-        // this.coins.body.isSensor = true;
+        // setting coin body as sensor. Will fire collision events without actually collide
+        this.coins.body.isSensor = true;
 
-        // //coinframe
-        // this.anims.create({
-        //     key: 'coinRotate',
-        //     repeat: -1,
-        //     frameRate: 7,
-        //     frames: this.anims.generateFrameNames('coins', { start: 1, end: 10 })
-        // });
+        //coinframe
+        this.anims.create({
+            key: 'coinRotate',
+            repeat: -1,
+            frameRate: 7,
+            frames: this.anims.generateFrameNames('coins', { start: 1, end: 10 })
+        });
 
-        // this.coins.play('coinRotate');
-        // this.coins.displayWidth = 70;
-        // this.coins.displayHeight = 70;
-        // this.coins.body.label = "coins";
-        // // this.coins.setStatic(true);
+        this.coins.play('coinRotate');
+        this.coins.displayWidth = 70;
+        this.coins.displayHeight = 70;
+        this.coins.body.label = "coins";
+        // this.coins.setStatic(true);
 
 
         this.platformGroup = this.physics.add.group();
@@ -209,11 +209,13 @@ class Level2 extends Phaser.Scene {
         this.scoreText.setText('SCORE:' + this.score);
     }
     movePlatforms() {
+        this.coins.setVelocityX(-gameOptions.platformSpeedLevel2);
         this.platformGroup.setVelocityX(-gameOptions.platformSpeedLevel2);
         //scroll background
         this.image.tilePositionX += 1;
     }
     stopPlatforms() {
+        this.coins.setVelocityX(0);
         this.platformGroup.setVelocityX(0);
     }
     getRightmostPlatform() {
@@ -225,11 +227,13 @@ class Level2 extends Phaser.Scene {
     }
     update() {
         var isCollided = this.physics.overlap(this.platformGroup, this.ball, this.collision, null, this)
+        var coinIsCollided = this.physics.overlap(this.ball, this.coins, this.collisionCoin, null, this)
+        console.log(coinIsCollided)
         this.checkGameOver();
     }
 
     collision() {
-        this.sound.play('groundsound');
+        // this.sound.play('groundsound');
         this.ball.setVelocityY(-700);
         if (this.hitCount == 0) {
             this.platformGroup.getChildren().forEach(function (platform) {
@@ -245,6 +249,15 @@ class Level2 extends Phaser.Scene {
             }
             this.checkGameWin();
         }
+    }
+
+    collisionCoin() {
+        this.placeCoin()
+    }
+
+    placeCoin() {
+        this.coins.x = Phaser.Math.Between(game.config.width * 0.2, game.config.width * 0.8);
+        this.coins.y = Phaser.Math.Between(game.config.height * 0.2, game.config.height * 0.8);
     }
 
     checkGameOver() {

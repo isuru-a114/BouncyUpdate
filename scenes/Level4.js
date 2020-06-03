@@ -168,7 +168,7 @@ class Level4 extends Phaser.Scene {
     }
 
     checkGameWin() {
-        if (this.score >= 40 && this.isShowPass == true) {
+        if (this.score >= 120 && this.isShowPass == true) {
             /////
             // coin frame animation
             this.firework = this.physics.add.sprite(300, 290, 'firework');
