@@ -21,7 +21,7 @@ class Level4 extends Phaser.Scene {
         });
         this.load.spritesheet('firework', 'assets/img/firework.png', { frameWidth: 250, frameHeight: 245 });
         //sound
-        this.load.audio('groundsound', 'sounds/groundsound.wav');
+        // this.load.audio('groundsound', 'sounds/groundsound.wav');
     }
 
     // method to be executed once the scene has been created
@@ -143,7 +143,7 @@ class Level4 extends Phaser.Scene {
     }
 
     collision() {
-        this.sound.play('groundsound');
+        // this.sound.play('groundsound');
         this.ball.setVelocityY(-700);
         if (this.hitCount == 0) {
             this.platformGroup.getChildren().forEach(function (platform) {
@@ -260,7 +260,7 @@ class Level4 extends Phaser.Scene {
 
     breakGround(platform) {
         this.timedEvent = this.time.addEvent({
-            delay: 3000, callback: function () {
+            delay: 6000, callback: function () {
                 platform.setFrame(1);
                 var slice2 = this.add.sprite(platform.x, platform.y, "ground", 2);
                 slice2.displayHeight = 153;

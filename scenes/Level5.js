@@ -18,8 +18,10 @@ class Level5 extends Phaser.Scene {
         this.load.image("congrate", "assets/img/congratulation.png");
         this.load.image("btn_next", "assets/img/NextLevel.png");
         this.load.spritesheet('firework', 'assets/img/firework.png', { frameWidth: 250, frameHeight: 245 });
+
+        this.load.spritesheet('coins', 'assets/img/coin.png', { frameWidth: 400, frameHeight: 400 });
         //sound
-        this.load.audio('groundsound', 'sounds/groundsound.wav');
+        // this.load.audio('groundsound', 'sounds/groundsound.wav');
     }
 
     // method to be executed once the scene has been created
@@ -80,6 +82,26 @@ class Level5 extends Phaser.Scene {
         this.ball.displayHeight = game.config.height / 10;
         this.ball.displayWidth = game.config.width / 10;
 
+        //coin frame animation
+        this.coins = this.physics.add.sprite(250, 225, 'coins');
+
+        // setting coin body as sensor. Will fire collision events without actually collide
+        this.coins.body.isSensor = true;
+
+        //coinframe
+        this.anims.create({
+            key: 'coinRotate',
+            repeat: -1,
+            frameRate: 7,
+            frames: this.anims.generateFrameNames('coins', { start: 1, end: 10 })
+        });
+
+        this.coins.play('coinRotate');
+        this.coins.displayWidth = 70;
+        this.coins.displayHeight = 70;
+        this.coins.body.label = "coins";
+        // this.coins.setStatic(true);
+
         this.ball.body.gravity.y = 2400;
         this.ball.setBounce(1);
         this.ball.body.checkCollision.down = true;
@@ -107,43 +129,6 @@ class Level5 extends Phaser.Scene {
                         this.scene.start("Level3");
                     } else {
                         this.gotoNextLevel = true;
-                        /////
-                        // coin frame animation
-                        this.firework = this.physics.add.sprite(300, 290, 'firework');
-                        this.firework2 = this.physics.add.sprite(250, 250, 'firework');
-                        this.firework3 = this.physics.add.sprite(150, 200, 'firework');
-
-                        // setting coin body as sensor. Will fire collision events without actually collide
-                        this.firework.body.isSensor = true;
-                        this.firework2.body.isSensor = true;
-                        this.firework3.body.isSensor = true;
-
-                        //coinframe
-                        this.anims.create({
-                            key: 'fireworkRotate',
-                            repeat: -1,
-                            frameRate: 10,
-                            frames: this.anims.generateFrameNames('firework', { start: 1, end: 46 })
-                        });
-
-                        this.firework.play('fireworkRotate');
-                        this.firework.displayWidth = 250;
-                        this.firework.displayHeight = 250;
-                        this.firework.body.label = "firework";
-
-                        this.firework2.play('fireworkRotate');
-                        this.firework2.displayWidth = 250;
-                        this.firework2.displayHeight = 250;
-                        this.firework2.body.label = "firework";
-
-                        this.firework3.play('fireworkRotate');
-                        this.firework3.displayWidth = 250;
-                        this.firework3.displayHeight = 250;
-                        this.firework3.body.label = "firework";
-                        /////
-                        this.nextLevel = this.add.image(game.config.width / 2, game.config.height / 4 * 3, 'btn_next');
-                        this.nextLevel.displayHeight = game.config.height / 10;
-                        this.nextLevel.displayWidth = game.config.width / 2.4;
                     }
                 } else {
                     this.movePlatforms();
@@ -176,11 +161,19 @@ class Level5 extends Phaser.Scene {
         this.scoreText.setText('SCORE:' + this.score);
     }
     movePlatforms() {
+        this.coins.setVelocityX(-gameOptions.platformSpeedLevel2);
         this.platformGroup.setVelocityX(-gameOptions.platformSpeedLevel2);
         //scroll background
         this.image.tilePositionX += 1;
+
+        // if coins not collide ball
+        if (this.coins.x <= 0) {
+            console.log(this.coins.x)
+            this.placeCoin()
+        }
     }
     stopPlatforms() {
+        this.coins.setVelocityX(0);
         this.platformGroup.setVelocityX(0);
     }
     getRightmostPlatform() {
@@ -192,11 +185,12 @@ class Level5 extends Phaser.Scene {
     }
     update() {
         var isCollided = this.physics.overlap(this.platformGroup, this.ball, this.collision, null, this)
+        var coinIsCollided = this.physics.overlap(this.ball, this.coins, this.collisionCoin, null, this)
         this.checkGameOver();
     }
 
     collision() {
-        this.sound.play('groundsound');
+        // this.sound.play('groundsound');
         this.ball.setVelocityY(-1000);
         if (this.hitCount == 0) {
             this.platformGroup.getChildren().forEach(function (platform) {
@@ -214,6 +208,16 @@ class Level5 extends Phaser.Scene {
         }
     }
 
+    collisionCoin() {
+        this.updateScore(10);
+        this.placeCoin()
+    }
+
+    placeCoin() {
+        this.coins.x = Phaser.Math.Between(game.config.width * 1.2, game.config.width * 1.8);
+        this.coins.y = Phaser.Math.Between(game.config.height * 0.6, game.config.height * 0.4);
+    }
+
     checkGameOver() {
         if (this.ball.y > game.config.height) {
             this.performGameOver()
@@ -222,13 +226,43 @@ class Level5 extends Phaser.Scene {
 
     checkGameWin() {
         if (this.score >= 60 && this.isShowPass == true) {
-            // this.congrate = this.add.image(game.config.width / 2, game.config.height / 4, 'congrate');
-            // this.congrate.displayHeight = game.config.height / 4;
-            // this.congrate.displayWidth = game.config.width / 2;
+            /////
+            // coin frame animation
+            this.firework = this.physics.add.sprite(300, 290, 'firework');
+            this.firework2 = this.physics.add.sprite(250, 250, 'firework');
+            this.firework3 = this.physics.add.sprite(150, 200, 'firework');
 
-            // this.stars = this.add.image(game.config.width / 2, game.config.height / 2, 'stars');
-            // this.stars.displayHeight = game.config.height / 4;
-            // this.stars.displayWidth = game.config.width / 2;
+            // setting coin body as sensor. Will fire collision events without actually collide
+            this.firework.body.isSensor = true;
+            this.firework2.body.isSensor = true;
+            this.firework3.body.isSensor = true;
+
+            //coinframe
+            this.anims.create({
+                key: 'fireworkRotate',
+                repeat: -1,
+                frameRate: 10,
+                frames: this.anims.generateFrameNames('firework', { start: 1, end: 46 })
+            });
+
+            this.firework.play('fireworkRotate');
+            this.firework.displayWidth = 250;
+            this.firework.displayHeight = 250;
+            this.firework.body.label = "firework";
+
+            this.firework2.play('fireworkRotate');
+            this.firework2.displayWidth = 250;
+            this.firework2.displayHeight = 250;
+            this.firework2.body.label = "firework";
+
+            this.firework3.play('fireworkRotate');
+            this.firework3.displayWidth = 250;
+            this.firework3.displayHeight = 250;
+            this.firework3.body.label = "firework";
+            /////
+            this.nextLevel = this.add.image(game.config.width / 2, game.config.height / 4 * 3, 'btn_next');
+            this.nextLevel.displayHeight = game.config.height / 10;
+            this.nextLevel.displayWidth = game.config.width / 2.4;
 
             score = this.score;
 
