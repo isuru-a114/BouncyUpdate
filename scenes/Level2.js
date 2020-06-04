@@ -75,7 +75,7 @@ class Level2 extends Phaser.Scene {
 
         //level
         levelText = this.add.text(game.config.width / 1.6, game.config.height / 24, 'LEVEL:1', { fontSize: '35px', fill: '#FFF' });
-
+        score = 0
         this.score = score;
 
         //ball
@@ -295,7 +295,7 @@ class Level2 extends Phaser.Scene {
     performGameOver() {
         score = this.score;
         localStorage.setItem(gameOptions.localStorageName, Math.max(this.score, this.topScore));
-        if (!this.gotoNextLevel) {
+         if (!this.gotoNextLevel) {
             this.scene.start("GameOver");
         }
     }
