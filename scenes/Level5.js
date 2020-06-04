@@ -225,7 +225,7 @@ class Level5 extends Phaser.Scene {
     }
 
     checkGameWin() {
-        if (this.score >= 60 && this.isShowPass == true) {
+        if (this.score >= 30 && this.isShowPass == true) {
             /////
             // coin frame animation
             this.firework = this.physics.add.sprite(300, 290, 'firework');
