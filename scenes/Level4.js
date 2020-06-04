@@ -15,6 +15,7 @@ class Level4 extends Phaser.Scene {
         this.load.image("ball", "assets/img/ball.png");
         this.load.image("stars", "assets/img/stars.png");
         this.load.image("congrate", "assets/img/congratulation.png");
+        this.load.image("btn_congrate", "assets/img/Congratulations.png");
         this.load.spritesheet("ground", "assets/img/spritesheet.png", {
             frameWidth: 397,
             frameHeight: 216
@@ -106,11 +107,49 @@ class Level4 extends Phaser.Scene {
                 //console.log("soft right key");
                 if (this.iscompleted == true) {
                     if (this.gotoNextLevel == true) {
-                        localStorage.setItem("L1", "C");
-                        this.scene.start("Level5");
-                    } else {
                         localStorage.setItem("L4", "C");
                         this.scene.start("SelectLevel");
+                    } else {
+                        this.gotoNextLevel = true;
+                        /////
+                        // coin frame animation
+                        this.firework = this.physics.add.sprite(300, 290, 'firework');
+                        this.firework2 = this.physics.add.sprite(250, 250, 'firework');
+                        this.firework3 = this.physics.add.sprite(150, 200, 'firework');
+
+                        // setting coin body as sensor. Will fire collision events without actually collide
+                        this.firework.body.isSensor = true;
+                        this.firework2.body.isSensor = true;
+                        this.firework3.body.isSensor = true;
+
+                        //coinframe
+                        this.anims.create({
+                            key: 'fireworkRotate',
+                            repeat: -1,
+                            frameRate: 10,
+                            frames: this.anims.generateFrameNames('firework', { start: 1, end: 46 })
+                        });
+
+                        this.firework.play('fireworkRotate');
+                        this.firework.displayWidth = 250;
+                        this.firework.displayHeight = 250;
+                        this.firework.body.label = "firework";
+
+                        this.firework2.play('fireworkRotate');
+                        this.firework2.displayWidth = 250;
+                        this.firework2.displayHeight = 250;
+                        this.firework2.body.label = "firework";
+
+                        this.firework3.play('fireworkRotate');
+                        this.firework3.displayWidth = 250;
+                        this.firework3.displayHeight = 250;
+                        this.firework3.body.label = "firework";
+                        /////
+
+                        this.congrate = this.add.image(game.config.width / 2, game.config.height / 4 * 3, 'btn_congrate');
+                        this.congrate.displayHeight = game.config.height / 5;
+                        this.congrate.displayWidth = game.config.width / 1.5;
+
                     }
 
                 } else {
@@ -169,40 +208,6 @@ class Level4 extends Phaser.Scene {
 
     checkGameWin() {
         if (this.score >= 30 && this.isShowPass == true) {
-            /////
-            // coin frame animation
-            this.firework = this.physics.add.sprite(300, 290, 'firework');
-            this.firework2 = this.physics.add.sprite(250, 250, 'firework');
-            this.firework3 = this.physics.add.sprite(150, 200, 'firework');
-
-            // setting coin body as sensor. Will fire collision events without actually collide
-            this.firework.body.isSensor = true;
-            this.firework2.body.isSensor = true;
-            this.firework3.body.isSensor = true;
-
-            //coinframe
-            this.anims.create({
-                key: 'fireworkRotate',
-                repeat: -1,
-                frameRate: 10,
-                frames: this.anims.generateFrameNames('firework', { start: 1, end: 46 })
-            });
-
-            this.firework.play('fireworkRotate');
-            this.firework.displayWidth = 250;
-            this.firework.displayHeight = 250;
-            this.firework.body.label = "firework";
-
-            this.firework2.play('fireworkRotate');
-            this.firework2.displayWidth = 250;
-            this.firework2.displayHeight = 250;
-            this.firework2.body.label = "firework";
-
-            this.firework3.play('fireworkRotate');
-            this.firework3.displayWidth = 250;
-            this.firework3.displayHeight = 250;
-            this.firework3.body.label = "firework";
-            /////
             // score = this.score;
 
             this.iscompleted = true;
@@ -255,7 +260,9 @@ class Level4 extends Phaser.Scene {
     performGameOver() {
         score = this.score;
         localStorage.setItem(gameOptions.localStorageName, Math.max(this.score, this.topScore));
-        this.scene.start("GameOver");
+        if (!this.gotoNextLevel) {
+            this.scene.start("GameOver");
+        }
     }
 
     breakGround(platform) {
