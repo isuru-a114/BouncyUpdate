@@ -88,7 +88,6 @@ class HelpScene extends Phaser.Scene {
             //console.log("right CLICK");
             // this.changeSlides();
             this.changeSlidesRight();
-
         }
 
     }
