@@ -74,7 +74,7 @@ class Level2 extends Phaser.Scene {
         this.score_btn.displayWidth = game.config.width / 2.4;
 
         //level
-        levelText = this.add.text(game.config.width / 1.6, game.config.height / 25, 'LEVEL:1', { fontSize: '40px', fill: '#FFF' });
+        levelText = this.add.text(game.config.width / 1.6, game.config.height / 24, 'LEVEL:1', { fontSize: '35px', fill: '#FFF' });
 
         this.score = score;
 
@@ -193,11 +193,9 @@ class Level2 extends Phaser.Scene {
         this.input.on("pointerup", this.stopPlatforms, this);
         // this.score = 0;
         this.topScore = localStorage.getItem(gameOptions.localStorageName) == null ? 0 : localStorage.getItem(gameOptions.localStorageName);
-        this.scoreText = this.add.text(game.config.width / 16, game.config.height / 25, this.score, { fontSize: '40px', fill: '#FFF' });
+        this.scoreText = this.add.text(game.config.width / 16, game.config.height / 25, this.score, { fontSize: '35px', fill: '#FFF' });
         //this.updateScore(this.score);
         this.scoreText.setText('SCORE:' + this.score);
-
-        console.log(this.arr)
     }
 
 
@@ -207,6 +205,7 @@ class Level2 extends Phaser.Scene {
         this.scoreText.text = "Score: " + this.score + "\nBest: " + this.topScore;
         this.scoreText.setText('SCORE:' + this.score);
     }
+
     movePlatforms() {
         this.coins.setVelocityX(-gameOptions.platformSpeedLevel2);
         this.platformGroup.setVelocityX(-gameOptions.platformSpeedLevel2);
@@ -296,7 +295,9 @@ class Level2 extends Phaser.Scene {
     performGameOver() {
         score = this.score;
         localStorage.setItem(gameOptions.localStorageName, Math.max(this.score, this.topScore));
-        this.scene.start("GameOver");
+        if (!this.gotoNextLevel) {
+            this.scene.start("GameOver");
+        }
     }
 }
 

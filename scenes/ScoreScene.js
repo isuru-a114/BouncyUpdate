@@ -31,6 +31,20 @@ class ScoreScene extends Phaser.Scene {
 
         }, this);
         //
+
+        //kaiads
+        getKaiAd({
+            publisher: 'ca24f2d0-de89-4c1a-80c4-51e14d317000',
+            app: 'Bouncy',
+            slot: 'Bouncy',
+            onerror: err => console.error('Custom catch:', err),
+            onready: ad => {
+                // Ad is ready to be displayed
+                // calling 'display' will display the ad
+                ad.call('display')
+            }
+        })
+
         this.input.keyboard.on('keyup', function (e) {
             if (e.key == "SoftRight" || e.key == "Backspace") {
                 //console.log("soft right key");
@@ -84,7 +98,7 @@ class ScoreScene extends Phaser.Scene {
             target: "Menu",
             moveAbove: true,
             duration: 300,
-          })
+        })
         // this.scene.start("Menu");
     }
 };

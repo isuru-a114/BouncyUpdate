@@ -41,6 +41,19 @@ class SelectLevel extends Phaser.Scene {
 
         // });
 
+        //kaiads
+        getKaiAd({
+            publisher: 'ca24f2d0-de89-4c1a-80c4-51e14d317000',
+            app: 'Bouncy',
+            slot: 'Bouncy',
+            onerror: err => console.error('Custom catch:', err),
+            onready: ad => {
+                // Ad is ready to be displayed
+                // calling 'display' will display the ad
+                ad.call('display')
+            }
+        })
+
         this.events.on('transitionout', function (toScene, duration) {
 
             this.cameras.main.zoomTo(0.05, 300);

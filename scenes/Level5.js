@@ -129,6 +129,43 @@ class Level5 extends Phaser.Scene {
                         this.scene.start("Level3");
                     } else {
                         this.gotoNextLevel = true;
+                        /////
+                        // coin frame animation
+                        this.firework = this.physics.add.sprite(300, 290, 'firework');
+                        this.firework2 = this.physics.add.sprite(250, 250, 'firework');
+                        this.firework3 = this.physics.add.sprite(150, 200, 'firework');
+
+                        // setting coin body as sensor. Will fire collision events without actually collide
+                        this.firework.body.isSensor = true;
+                        this.firework2.body.isSensor = true;
+                        this.firework3.body.isSensor = true;
+
+                        //coinframe
+                        this.anims.create({
+                            key: 'fireworkRotate',
+                            repeat: -1,
+                            frameRate: 10,
+                            frames: this.anims.generateFrameNames('firework', { start: 1, end: 46 })
+                        });
+
+                        this.firework.play('fireworkRotate');
+                        this.firework.displayWidth = 250;
+                        this.firework.displayHeight = 250;
+                        this.firework.body.label = "firework";
+
+                        this.firework2.play('fireworkRotate');
+                        this.firework2.displayWidth = 250;
+                        this.firework2.displayHeight = 250;
+                        this.firework2.body.label = "firework";
+
+                        this.firework3.play('fireworkRotate');
+                        this.firework3.displayWidth = 250;
+                        this.firework3.displayHeight = 250;
+                        this.firework3.body.label = "firework";
+                        /////
+                        this.nextLevel = this.add.image(game.config.width / 2, game.config.height / 4 * 3, 'btn_next');
+                        this.nextLevel.displayHeight = game.config.height / 10;
+                        this.nextLevel.displayWidth = game.config.width / 2.4;
                     }
                 } else {
                     this.movePlatforms();
@@ -226,44 +263,6 @@ class Level5 extends Phaser.Scene {
 
     checkGameWin() {
         if (this.score >= 30 && this.isShowPass == true) {
-            /////
-            // coin frame animation
-            this.firework = this.physics.add.sprite(300, 290, 'firework');
-            this.firework2 = this.physics.add.sprite(250, 250, 'firework');
-            this.firework3 = this.physics.add.sprite(150, 200, 'firework');
-
-            // setting coin body as sensor. Will fire collision events without actually collide
-            this.firework.body.isSensor = true;
-            this.firework2.body.isSensor = true;
-            this.firework3.body.isSensor = true;
-
-            //coinframe
-            this.anims.create({
-                key: 'fireworkRotate',
-                repeat: -1,
-                frameRate: 10,
-                frames: this.anims.generateFrameNames('firework', { start: 1, end: 46 })
-            });
-
-            this.firework.play('fireworkRotate');
-            this.firework.displayWidth = 250;
-            this.firework.displayHeight = 250;
-            this.firework.body.label = "firework";
-
-            this.firework2.play('fireworkRotate');
-            this.firework2.displayWidth = 250;
-            this.firework2.displayHeight = 250;
-            this.firework2.body.label = "firework";
-
-            this.firework3.play('fireworkRotate');
-            this.firework3.displayWidth = 250;
-            this.firework3.displayHeight = 250;
-            this.firework3.body.label = "firework";
-            /////
-            this.nextLevel = this.add.image(game.config.width / 2, game.config.height / 4 * 3, 'btn_next');
-            this.nextLevel.displayHeight = game.config.height / 10;
-            this.nextLevel.displayWidth = game.config.width / 2.4;
-
             score = this.score;
 
             this.iscompleted = true;
@@ -287,7 +286,9 @@ class Level5 extends Phaser.Scene {
     performGameOver() {
         score = this.score;
         localStorage.setItem(gameOptions.localStorageName, Math.max(this.score, this.topScore));
-        this.scene.start("GameOver");
+        if (!this.gotoNextLevel) {
+            this.scene.start("GameOver");
+        }
     }
 }
 

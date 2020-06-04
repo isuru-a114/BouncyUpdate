@@ -2,8 +2,8 @@
   "version": "1.0.0",
   "name": "Bouncy",
   "launch_path": "/index.html",
-  "description": "Click to make the ball jump. Pass through the walls when they are the same color.",
-  "subtitle": "Make the ball match the wall",
+  "description": "Keep bouncing from one platform to another. Collect coins to earn extra points.",
+  "subtitle": "Bounce to survive",
   "type": "web",
   "icons": {
     "56": "/icons/44-x-44-px.png",
@@ -38,8 +38,8 @@
   "locales": {
      "en-US": {
       "name": "Bouncy",
-      "subtitle": "Make the ball match the wall",
-      "description": "Click to make the ball jump. Pass through the walls when they are the same color."
+      "subtitle": "Bounce to survive",
+      "description": "Keep bouncing from one platform to another. Collect coins to earn extra points."
     }
   }
 }

@@ -220,7 +220,7 @@ class Level3 extends Phaser.Scene {
     }
 
     checkGameWin() {
-        if (this.score >= 30 && this.isShowPass == true) {
+        if (this.score >= 350 && this.isShowPass == true) {
             score = this.score;
 
             this.iscompleted = true;
@@ -276,7 +276,9 @@ class Level3 extends Phaser.Scene {
     performGameOver() {
         score = this.score;
         localStorage.setItem(gameOptions.localStorageName, Math.max(this.score, this.topScore));
-        this.scene.start("GameOver");
+        if (!this.gotoNextLevel) {
+            this.scene.start("GameOver");
+        }
     }
 
     movePlatformHorizontaly(platform) {
