@@ -168,7 +168,7 @@ class Level4 extends Phaser.Scene {
     }
 
     checkGameWin() {
-        if (this.score >= 120 && this.isShowPass == true) {
+        if (this.score >= 30 && this.isShowPass == true) {
             /////
             // coin frame animation
             this.firework = this.physics.add.sprite(300, 290, 'firework');
@@ -203,7 +203,7 @@ class Level4 extends Phaser.Scene {
             this.firework3.displayHeight = 250;
             this.firework3.body.label = "firework";
             /////
-            score = this.score;
+            // score = this.score;
 
             this.iscompleted = true;
             this.isShowPass = false;
