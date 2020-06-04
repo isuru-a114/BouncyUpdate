@@ -18,7 +18,7 @@ class Level3 extends Phaser.Scene {
         this.load.image("btn_next", "assets/img/NextLevel.png");
         this.load.spritesheet('firework', 'assets/img/firework.png', { frameWidth: 250, frameHeight: 245 });
         //sound
-        this.load.audio('groundsound', 'sounds/groundsound.wav');
+        // this.load.audio('groundsound', 'sounds/groundsound.wav');
     }
 
     // method to be executed once the scene has been created
@@ -187,7 +187,7 @@ class Level3 extends Phaser.Scene {
     }
 
     collision() {
-        this.sound.play('groundsound');
+        // this.sound.play('groundsound');
         this.ball.setVelocityY(-700);
         if (this.hitCount == 0) {
 
