@@ -75,7 +75,7 @@ class HelpScene extends Phaser.Scene {
     }
 
     setValueToLocalStorage() {
-        localStorage.setItem('isFirstTime', "yes");
+        localStorage.setItem('BisFirstTime', "yes");
     }
 
     update() {
