@@ -46,7 +46,7 @@ class ScoreScene extends Phaser.Scene {
         })
 
         this.input.keyboard.on('keyup', function (e) {
-            if (e.key == "SoftRight" || e.key == "Backspace") {
+            if (e.key == "SoftRight") {
                 //console.log("soft right key");
                 this.goBackScene()
 
@@ -85,7 +85,7 @@ class ScoreScene extends Phaser.Scene {
             this.THIRD = this.add.text(game.config.width / 2.1, game.config.height / 4 * 2.8, ThirdHighScore, { fontSize: '60px', fill: '#FFF' });
         }
         this.about = this.add.text(game.config.width - game.config.width * 10 / 100, game.config.height - game.config.height * 5 / 100, "Back").setFontSize(30).setFontFamily("Arial").setOrigin(0.5);
-        this.back_space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.BACKSPACE);
+        // this.back_space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.BACKSPACE);
     }
 
     // method to be called at each frame
