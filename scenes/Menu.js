@@ -76,7 +76,7 @@ class Menu extends Phaser.Scene {
             }
         }, this);
 
-        this.input.keyboard.on('keyup', function (e) {
+        this.input.keyboard.on('keydown', function (e) {
             if (e.key == "Enter") {
                 //console.log("soft left key");
                 this.callMenuButton();
