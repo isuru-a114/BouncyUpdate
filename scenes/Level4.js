@@ -108,7 +108,7 @@ class Level4 extends Phaser.Scene {
                 if (this.iscompleted == true) {
                     if (this.gotoNextLevel == true) {
                         localStorage.setItem("L4", "C");
-                        this.scene.start("SelectLevel");
+                        this.scene.start("Menu");
                     } else {
                         this.gotoNextLevel = true;
                         /////
