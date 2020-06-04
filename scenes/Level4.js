@@ -206,7 +206,7 @@ class Level4 extends Phaser.Scene {
 
     checkGameWin() {
         if (this.score >= 120 && this.isShowPass == true) {
-            // score = this.score;
+            score = this.score;
 
             this.iscompleted = true;
             this.isShowPass = false;
@@ -256,7 +256,7 @@ class Level4 extends Phaser.Scene {
     }
 
     performGameOver() {
-        // score = this.score;
+        score = this.score;
         localStorage.setItem(gameOptions.localStorageName, Math.max(this.score, this.topScore));
         if (!this.gotoNextLevel) {
             this.scene.start("GameOver");
