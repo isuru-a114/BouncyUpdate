@@ -204,10 +204,10 @@ class OptionScene extends Phaser.Scene {
         //     this.changeSounds();
         //
         // }
-        if (Phaser.Input.Keyboard.JustDown(this.back_space)) {
-            //console.log("back CLICK");
-            this.goBackScene();
-        }
+        // if (Phaser.Input.Keyboard.JustDown(this.back_space)) {
+        //     //console.log("back CLICK");
+        //     this.goBackScene();
+        // }
 
     }
 }

@@ -65,7 +65,7 @@ class Menu extends Phaser.Scene {
         this.downArrow = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
         this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         this.back_space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B);
-        this.key_home = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.HOME);
+        // this.key_home = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.HOME);
 
 
         this.input.keyboard.on('keyup', function (e) {

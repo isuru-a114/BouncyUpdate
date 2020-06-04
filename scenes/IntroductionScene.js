@@ -78,10 +78,10 @@ class IntroductionScene extends Phaser.Scene {
 
         }
 
-        if (Phaser.Input.Keyboard.JustDown(this.back_space)) {
-            //console.log("back CLICK");
-            this.goBackScene();
-        }
+        // if (Phaser.Input.Keyboard.JustDown(this.back_space)) {
+        //     //console.log("back CLICK");
+        //     this.goBackScene();
+        // }
 
     }
 

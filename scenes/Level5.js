@@ -260,7 +260,7 @@ class Level5 extends Phaser.Scene {
     }
 
     checkGameWin() {
-        if (this.score >= 60 && this.isShowPass == true) {
+        if (this.score >= 250 && this.isShowPass == true) {
             score = this.score;
 
             this.iscompleted = true;

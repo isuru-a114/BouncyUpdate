@@ -269,7 +269,7 @@ class Level2 extends Phaser.Scene {
     }
 
     checkGameWin() {
-        if (this.score >= 30 && this.isShowPass == true) {
+        if (this.score >= 125 && this.isShowPass == true) {
             score = this.score;
 
             this.iscompleted = true;
