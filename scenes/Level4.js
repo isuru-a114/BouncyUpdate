@@ -105,6 +105,7 @@ class Level4 extends Phaser.Scene {
                 //console.log("soft right key");
                 if (this.iscompleted == true) {
                     if (this.gotoNextLevel == true) {
+                        score = 0
                         localStorage.setItem("L4", "C");
                         this.scene.start("Menu");
                     } else {
