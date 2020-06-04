@@ -13,8 +13,6 @@ class Level4 extends Phaser.Scene {
         this.load.image("score", "assets/img/Score.png")
         // this.load.image("ground", "assets/img/ground.png");
         this.load.image("ball", "assets/img/ball.png");
-        this.load.image("stars", "assets/img/stars.png");
-        this.load.image("congrate", "assets/img/congratulation.png");
         this.load.image("btn_congrate", "assets/img/Congratulations.png");
         this.load.spritesheet("ground", "assets/img/spritesheet.png", {
             frameWidth: 397,
@@ -72,8 +70,8 @@ class Level4 extends Phaser.Scene {
         this.score_btn.displayHeight = game.config.height / 10;
         this.score_btn.displayWidth = game.config.width / 2.4;
 
-        levelText = this.add.text(game.config.width / 1.6, game.config.height / 25, 'LEVEL:4', {
-            fontSize: '40px',
+        levelText = this.add.text(game.config.width / 1.6, game.config.height / 24, 'LEVEL:4', {
+            fontSize: '35px',
             fill: '#FFF'
         });
 
@@ -167,8 +165,8 @@ class Level4 extends Phaser.Scene {
 
         this.score = score;
         this.topScore = localStorage.getItem(gameOptions.localStorageName) == null ? 0 : localStorage.getItem(gameOptions.localStorageName);
-        this.scoreText = this.add.text(game.config.width / 16, game.config.height / 25, this.score, {
-            fontSize: '40px',
+        this.scoreText = this.add.text(game.config.width / 16, game.config.height / 24, this.score, {
+            fontSize: '35px',
             fill: '#FFF'
         });
         this.scoreText.setText('SCORE:' + this.score);
@@ -207,7 +205,7 @@ class Level4 extends Phaser.Scene {
     }
 
     checkGameWin() {
-        if (this.score >= 30 && this.isShowPass == true) {
+        if (this.score >= 120 && this.isShowPass == true) {
             // score = this.score;
 
             this.iscompleted = true;

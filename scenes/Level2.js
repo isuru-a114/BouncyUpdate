@@ -14,8 +14,6 @@ class Level2 extends Phaser.Scene {
         this.load.image("score", "assets/img/Score.png")
         this.load.image("ground", "assets/img/ground.png");
         this.load.image("ball", "assets/img/ball.png");
-        this.load.image("stars", "assets/img/stars.png");
-        this.load.image("congrate", "assets/img/congratulation.png");
         this.load.image("btn_next", "assets/img/NextLevel.png");
 
         //coin
