@@ -205,7 +205,7 @@ class Level4 extends Phaser.Scene {
     }
 
     checkGameWin() {
-        if (this.score >= 120 && this.isShowPass == true) {
+        if (this.score >= 30 && this.isShowPass == true) {
             score = this.score;
 
             this.iscompleted = true;
@@ -265,7 +265,7 @@ class Level4 extends Phaser.Scene {
 
     breakGround(platform) {
         this.timedEvent = this.time.addEvent({
-            delay: 6000, callback: function () {
+            delay: 9500, callback: function () {
                 platform.setFrame(1);
                 var slice2 = this.add.sprite(platform.x, platform.y, "ground", 2);
                 slice2.displayHeight = 153;
