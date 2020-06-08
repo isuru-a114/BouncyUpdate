@@ -72,6 +72,14 @@ class HelpScene extends Phaser.Scene {
 
         this.setValueToLocalStorage();
 
+        //touchable
+        this.goBack.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
+            this.scene.transition({
+                target: "Menu",
+                moveAbove: true,
+                duration: 300,
+            })
+        });
     }
 
     setValueToLocalStorage() {
@@ -89,7 +97,6 @@ class HelpScene extends Phaser.Scene {
             // this.changeSlides();
             this.changeSlidesRight();
         }
-
     }
 
     changeSlidesRight() {

@@ -119,32 +119,37 @@ class Menu extends Phaser.Scene {
 
         this.about = this.add.text(game.config.width - game.config.width * 10 / 100, game.config.height - game.config.height * 5 / 100, "About").setFontSize(30).setFontFamily("Arial").setOrigin(0.5);
 
-        //this.option = this.add.text(game.config.width - game.config.width * 90 / 100, game.config.height - game.config.height * 5 / 100, "Option").setFontSize(50).setFontFamily("Arial").setOrigin(0.5);
-
-        // create mouse input
-        // this.createMouseInput();
-
-        // create keyboard input
-        // this.createKeyboardInput();
-
-        // press the enter button on the keyboard then play the game
-        // then we can move to the "menu scene" to the "play scene"
-
-        // this.model = this.game.globals.model;
-        // if (this.model.musicOn === true && this.model.bgMusicPlaying === false) {
-        //     this.bgMusic = this.sound.add('bgMusic', { volume: 0.5, loop: true });
-        //     this.bgMusic.play();
-        //     this.model.bgMusicPlaying = true;
-        //     this.game.globals.bgMusic = this.bgMusic;
-        // }
-
-        // this.input.keyboard.on('keydown', function (event) {
-        //     console.log(event.code);
-        // });
+        // for tounchble 
+        this.btn_play.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
+            this.scene.transition({
+                target: "SelectLevel",
+                moveAbove: true,
+                duration: 300,
+            })
+        });
+        this.btn_score.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
+            this.scene.transition({
+                target: "ScoreScene",
+                moveAbove: true,
+                duration: 300,
+            })
+        });
+        this.btn_help.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
+            this.scene.transition({
+                target: "HelpScene",
+                moveAbove: true,
+                duration: 300,
+            })
+        });
+        this.about.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
+            this.scene.transition({
+                target: "ContactScene",
+                moveAbove: true,
+                duration: 300,
+            })
+        });
 
     }
-
-
 
     update() {
 

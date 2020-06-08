@@ -118,8 +118,59 @@ class Level5 extends Phaser.Scene {
             platform.setSize(game.config.height / 2.5, game.config.width / 2, false)
         }
 
-        this.input.on("pointerdown", this.movePlatforms, this);
-        this.input.on("pointerup", this.stopPlatforms, this);
+        this.input.on("pointerdown", () => {
+            if (this.iscompleted == true) {
+                if (this.gotoNextLevel == true) {
+                    localStorage.setItem("L2", "C");
+                    this.scene.start("Level3");
+                } else {
+                    this.gotoNextLevel = true;
+                    /////
+                    // coin frame animation
+                    this.firework = this.physics.add.sprite(300, 290, 'firework');
+                    this.firework2 = this.physics.add.sprite(250, 250, 'firework');
+                    this.firework3 = this.physics.add.sprite(150, 200, 'firework');
+
+                    // setting coin body as sensor. Will fire collision events without actually collide
+                    this.firework.body.isSensor = true;
+                    this.firework2.body.isSensor = true;
+                    this.firework3.body.isSensor = true;
+
+                    //coinframe
+                    this.anims.create({
+                        key: 'fireworkRotate',
+                        repeat: -1,
+                        frameRate: 10,
+                        frames: this.anims.generateFrameNames('firework', { start: 1, end: 46 })
+                    });
+
+                    this.firework.play('fireworkRotate');
+                    this.firework.displayWidth = 250;
+                    this.firework.displayHeight = 250;
+                    this.firework.body.label = "firework";
+
+                    this.firework2.play('fireworkRotate');
+                    this.firework2.displayWidth = 250;
+                    this.firework2.displayHeight = 250;
+                    this.firework2.body.label = "firework";
+
+                    this.firework3.play('fireworkRotate');
+                    this.firework3.displayWidth = 250;
+                    this.firework3.displayHeight = 250;
+                    this.firework3.body.label = "firework";
+                    /////
+                    this.nextLevel = this.add.image(game.config.width / 2, game.config.height / 4 * 3, 'btn_next');
+                    this.nextLevel.displayHeight = game.config.height / 10;
+                    this.nextLevel.displayWidth = game.config.width / 2.4;
+                }
+            } else {
+                this.movePlatforms();
+            }
+        }, this);
+        this.input.on("pointerup", () => {
+            this.stopPlatforms();
+            this.hitCount = 0;
+        }, this);
 
         this.input.keyboard.on('keydown', function (e) {
             // console.log(e)

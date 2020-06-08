@@ -86,6 +86,15 @@ class ScoreScene extends Phaser.Scene {
         }
         this.about = this.add.text(game.config.width - game.config.width * 10 / 100, game.config.height - game.config.height * 5 / 100, "Back").setFontSize(30).setFontFamily("Arial").setOrigin(0.5);
         // this.back_space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.BACKSPACE);
+
+        //touchable
+        this.about.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
+            this.scene.transition({
+                target: "Menu",
+                moveAbove: true,
+                duration: 300,
+            })
+        });
     }
 
     // method to be called at each frame

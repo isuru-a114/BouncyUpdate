@@ -145,29 +145,44 @@ class SelectLevel extends Phaser.Scene {
 
         this.back = this.add.text(game.config.width - game.config.width * 10 / 100, game.config.height - game.config.height * 5 / 100, "Back").setFontSize(30).setFontFamily("Arial").setOrigin(0.5);
 
-        //this.option = this.add.text(game.config.width - game.config.width * 90 / 100, game.config.height - game.config.height * 5 / 100, "Option").setFontSize(50).setFontFamily("Arial").setOrigin(0.5);
+        //touchable
+        this.btn_play.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
+            this.scene.transition({
+                target: "Level2",
+                moveAbove: true,
+                duration: 300,
+            })
+        });
 
-        // create mouse input
-        // this.createMouseInput();
+        if (localStorage.getItem('L1') == "C") {
+            this.btn_score.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
+                this.scene.transition({
+                    target: "Level5",
+                    moveAbove: true,
+                    duration: 300,
+                })
+            });
+        }
 
-        // create keyboard input
-        // this.createKeyboardInput();
+        if (localStorage.getItem('L2') == "C") {
+            this.btn_help.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
+                this.scene.transition({
+                    target: "Level3",
+                    moveAbove: true,
+                    duration: 300,
+                })
+            });
+        }
 
-        // press the enter button on the keyboard then play the game
-        // then we can move to the "menu scene" to the "play scene"
-
-        // this.model = this.game.globals.model;
-        // if (this.model.musicOn === true && this.model.bgMusicPlaying === false) {
-        //     this.bgMusic = this.sound.add('bgMusic', { volume: 0.5, loop: true });
-        //     this.bgMusic.play();
-        //     this.model.bgMusicPlaying = true;
-        //     this.game.globals.bgMusic = this.bgMusic;
-        // }
-
-        // this.input.keyboard.on('keydown', function (event) {
-        //     console.log(event.code);
-        // });
-
+        if (localStorage.getItem('L3') == "C") {
+            this.btn_leve4.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
+                this.scene.transition({
+                    target: "Level4",
+                    moveAbove: true,
+                    duration: 300,
+                })
+            });
+        }
     }
 
 

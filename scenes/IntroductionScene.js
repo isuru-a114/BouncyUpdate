@@ -59,6 +59,15 @@ class IntroductionScene extends Phaser.Scene {
 
         this.setValueToLocalStorage();
 
+        //touchable
+        this.goBack.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
+            this.scene.transition({
+                target: "Menu",
+                moveAbove: true,
+                duration: 300,
+            })
+        });
+
     }
 
     setValueToLocalStorage() {
@@ -113,6 +122,7 @@ class IntroductionScene extends Phaser.Scene {
         }
         //this.skip = this.add.text(game.config.width - game.config.width * 10 / 100, game.config.height - game.config.height * 5 / 100, "Skip").setFontSize(50).setFontFamily("Arial").setOrigin(0.5);
         this.goBack = this.add.text(game.config.width - game.config.width * 8 / 100, game.config.height - game.config.height * 5 / 100, "Back").setFontSize(30).setFontFamily("Arial").setOrigin(0.5);
+
     }
 
     changeSlidesLeft() {
