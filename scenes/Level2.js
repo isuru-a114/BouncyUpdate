@@ -173,7 +173,7 @@ class Level2 extends Phaser.Scene {
             }
         }, this);
 
-        this.input.on("pointerup",()=>{
+        this.input.on("pointerup", () => {
             this.stopPlatforms();
             this.hitCount = 0;
         }, this);
@@ -351,6 +351,7 @@ class Level2 extends Phaser.Scene {
         score = this.score;
         localStorage.setItem(gameOptions.localStorageName, Math.max(this.score, this.topScore));
         if (!this.gotoNextLevel) {
+            score = 0;
             this.scene.start("GameOver");
         }
     }
