@@ -73,10 +73,10 @@ window.onload = function () {
         type: Phaser.AUTO,
 
         // width of the game, in pixels
-        width: window.innerWidth,
+        width: 480,
 
         // height of the game, in pixels
-        height: window.innerHeight,
+        height: 640,
 
         // background color (black)
         backgroundColor: 0x13414e,
