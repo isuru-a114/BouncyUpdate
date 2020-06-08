@@ -46,7 +46,7 @@ class ScoreScene extends Phaser.Scene {
         })
 
         this.input.keyboard.on('keyup', function (e) {
-            if (e.key == "SoftRight") {
+            if (e.key == "SoftRight" || e.key == "Backspace") {
                 //console.log("soft right key");
                 this.goBackScene()
 
