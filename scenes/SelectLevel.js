@@ -145,6 +145,16 @@ class SelectLevel extends Phaser.Scene {
 
         this.back = this.add.text(game.config.width - game.config.width * 10 / 100, game.config.height - game.config.height * 5 / 100, "Back").setFontSize(30).setFontFamily("Arial").setOrigin(0.5);
 
+
+         //touchable
+         this.back.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
+            this.scene.transition({
+                target: "Menu",
+                moveAbove: true,
+                duration: 300,
+            })
+        });
+
         //touchable
         this.btn_play.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
             this.scene.transition({
