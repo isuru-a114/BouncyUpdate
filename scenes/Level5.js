@@ -118,6 +118,9 @@ class Level5 extends Phaser.Scene {
             platform.setSize(game.config.height / 2.5, game.config.width / 2, false)
         }
 
+        this.input.on("pointerdown", this.movePlatforms, this);
+        this.input.on("pointerup", this.stopPlatforms, this);
+
         this.input.keyboard.on('keydown', function (e) {
             // console.log(e)
             if (e.key == "Enter") {
