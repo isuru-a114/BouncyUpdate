@@ -68,6 +68,14 @@ class IntroductionScene extends Phaser.Scene {
             })
         });
 
+        this.input.on("pointerdown", (pointer) => {
+            if (pointer.x < 120) {
+                this.changeSlidesLeft()
+            } else {
+                this.changeSlidesRight()
+            }
+
+        }, this);
     }
 
     setValueToLocalStorage() {
