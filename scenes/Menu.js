@@ -127,21 +127,21 @@ class Menu extends Phaser.Scene {
                 duration: 300,
             })
         });
-        this.btn_score.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
+        this.btn_score.on('pointerdown', (pointer, localX, localY, event) => {
             this.scene.transition({
                 target: "ScoreScene",
                 moveAbove: true,
                 duration: 300,
             })
         });
-        this.btn_help.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
+        this.btn_help.on('pointerdown', (pointer, localX, localY, event) => {
             this.scene.transition({
                 target: "HelpScene",
                 moveAbove: true,
                 duration: 300,
             })
         });
-        this.about.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
+        this.about.on('pointerdown', (pointer, localX, localY, event) => {
            this.scene.transition({
             target: "ContactScene",
             moveAbove: true,
