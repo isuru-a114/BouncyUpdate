@@ -339,7 +339,6 @@ class Level5 extends Phaser.Scene {
         score = this.score;
         localStorage.setItem(gameOptions.localStorageName, Math.max(this.score, this.topScore));
         if (!this.gotoNextLevel) {
-            score = 0;
             this.scene.start("GameOver");
         }
     }

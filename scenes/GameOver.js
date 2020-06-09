@@ -282,6 +282,7 @@ class GameOver extends Phaser.Scene {
     //console.log(this.selected_button);
     switch (this.selected_button) {
       case "Restart":
+        score = 0;
         //console.log("Restart SELECT");
         this.reStoreGameLevelValues();
         this.scene.transition({
