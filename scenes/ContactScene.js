@@ -57,7 +57,7 @@ class ContactScene extends Phaser.Scene {
         }, this);
 
         //touchable
-        this.goBack.on('pointerup', (pointer, localX, localY, event) => {
+        this.goBack.setInteractive().on('pointerup', (pointer, localX, localY, event) => {
             this.scene.transition({
                 target: "Menu",
                 moveAbove: true,

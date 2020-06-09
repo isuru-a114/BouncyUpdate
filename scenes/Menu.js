@@ -120,38 +120,45 @@ class Menu extends Phaser.Scene {
         this.about = this.add.text(game.config.width - game.config.width * 10 / 100, game.config.height - game.config.height * 5 / 100, "About").setFontSize(30).setFontFamily("Arial").setOrigin(0.5);
 
         // for tounchble 
-        this.btn_play.on('pointerdown', (pointer, localX, localY, event) => {
+        this.btn_play.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
             this.scene.transition({
                 target: "SelectLevel",
                 moveAbove: true,
                 duration: 300,
             })
         });
-        this.btn_score.on('pointerdown', (pointer, localX, localY, event) => {
+
+        this.btn_score.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
             this.scene.transition({
                 target: "ScoreScene",
                 moveAbove: true,
                 duration: 300,
             })
         });
-        this.btn_help.on('pointerdown', (pointer, localX, localY, event) => {
+
+        this.btn_help.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
             this.scene.transition({
                 target: "HelpScene",
                 moveAbove: true,
                 duration: 300,
             })
         });
-        this.about.on('pointerdown', (pointer, localX, localY, event) => {
-           this.scene.transition({
-            target: "ContactScene",
-            moveAbove: true,
-            duration: 300,
-        })
+
+        this.about.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
+            this.scene.transition({
+                target: "ContactScene",
+                moveAbove: true,
+                duration: 300,
+            })
         });
 
     }
 
     update() {
+
+        if(this.input.activePointer.isDown){
+            
+        }
 
         if (Phaser.Input.Keyboard.JustDown(this.upArrow)) {
             // console.log("UP CLICK");

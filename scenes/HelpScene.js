@@ -73,7 +73,7 @@ class HelpScene extends Phaser.Scene {
         this.setValueToLocalStorage();
 
         //touchable
-        this.goBack.on('pointerdown', (pointer, localX, localY, event) => {
+        this.goBack.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
             this.scene.transition({
                 target: "Menu",
                 moveAbove: true,

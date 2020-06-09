@@ -147,7 +147,7 @@ class SelectLevel extends Phaser.Scene {
 
 
          //touchable
-         this.back.on('pointerdown', (pointer, localX, localY, event) => {
+         this.back.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
             this.scene.transition({
                 target: "Menu",
                 moveAbove: true,
@@ -156,7 +156,7 @@ class SelectLevel extends Phaser.Scene {
         });
 
         //touchable
-        this.btn_play.on('pointerdown', (pointer, localX, localY, event) => {
+        this.btn_play.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
             this.scene.transition({
                 target: "Level2",
                 moveAbove: true,
@@ -165,7 +165,7 @@ class SelectLevel extends Phaser.Scene {
         });
 
         if (localStorage.getItem('L1') == "C") {
-            this.btn_score.on('pointerdown', (pointer, localX, localY, event) => {
+            this.btn_score.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
                 this.scene.transition({
                     target: "Level5",
                     moveAbove: true,
@@ -175,7 +175,7 @@ class SelectLevel extends Phaser.Scene {
         }
 
         if (localStorage.getItem('L2') == "C") {
-            this.btn_help.on('pointerdown', (pointer, localX, localY, event) => {
+            this.btn_help.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
                 this.scene.transition({
                     target: "Level3",
                     moveAbove: true,
@@ -185,7 +185,7 @@ class SelectLevel extends Phaser.Scene {
         }
 
         if (localStorage.getItem('L3') == "C") {
-            this.btn_leve4.on('pointerdown', (pointer, localX, localY, event) => {
+            this.btn_leve4.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
                 this.scene.transition({
                     target: "Level4",
                     moveAbove: true,
