@@ -120,7 +120,7 @@ class Menu extends Phaser.Scene {
         this.about = this.add.text(game.config.width - game.config.width * 10 / 100, game.config.height - game.config.height * 5 / 100, "About").setFontSize(30).setFontFamily("Arial").setOrigin(0.5);
 
         // for tounchble 
-        this.btn_play.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
+        this.btn_play.on('pointerdown', (pointer, localX, localY, event) => {
             this.scene.transition({
                 target: "SelectLevel",
                 moveAbove: true,
