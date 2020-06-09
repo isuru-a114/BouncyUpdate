@@ -32,18 +32,18 @@ class ScoreScene extends Phaser.Scene {
         }, this);
         //
 
-        //kaiads
-        getKaiAd({
-            publisher: 'ca24f2d0-de89-4c1a-80c4-51e14d317000',
-            app: 'Bouncy',
-            slot: 'Bouncy',
-            onerror: err => console.error('Custom catch:', err),
-            onready: ad => {
-                // Ad is ready to be displayed
-                // calling 'display' will display the ad
-                ad.call('display')
-            }
-        })
+        // //kaiads
+        // getKaiAd({
+        //     publisher: 'ca24f2d0-de89-4c1a-80c4-51e14d317000',
+        //     app: 'Bouncy',
+        //     slot: 'Bouncy',
+        //     onerror: err => console.error('Custom catch:', err),
+        //     onready: ad => {
+        //         // Ad is ready to be displayed
+        //         // calling 'display' will display the ad
+        //         ad.call('display')
+        //     }
+        // })
 
         this.input.keyboard.on('keyup', function (e) {
             if (e.key == "SoftRight" || e.key == "Backspace") {
@@ -88,13 +88,13 @@ class ScoreScene extends Phaser.Scene {
         // this.back_space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.BACKSPACE);
 
         //touchable
-        // this.about.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
-        //     this.scene.transition({
-        //         target: "Menu",
-        //         moveAbove: true,
-        //         duration: 300,
-        //     })
-        // });
+        this.about.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
+            this.scene.transition({
+                target: "Menu",
+                moveAbove: true,
+                duration: 300,
+            })
+        });
     }
 
     // method to be called at each frame
