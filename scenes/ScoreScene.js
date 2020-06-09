@@ -88,13 +88,13 @@ class ScoreScene extends Phaser.Scene {
         // this.back_space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.BACKSPACE);
 
         //touchable
-        this.about.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
-            this.scene.transition({
-                target: "Menu",
-                moveAbove: true,
-                duration: 300,
-            })
-        });
+        // this.about.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
+        //     this.scene.transition({
+        //         target: "Menu",
+        //         moveAbove: true,
+        //         duration: 300,
+        //     })
+        // });
     }
 
     // method to be called at each frame

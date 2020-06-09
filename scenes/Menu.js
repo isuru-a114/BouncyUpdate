@@ -127,7 +127,6 @@ class Menu extends Phaser.Scene {
                 duration: 300,
             })
         });
-
         this.btn_score.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
             this.scene.transition({
                 target: "ScoreScene",
@@ -135,7 +134,6 @@ class Menu extends Phaser.Scene {
                 duration: 300,
             })
         });
-
         this.btn_help.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
             this.scene.transition({
                 target: "HelpScene",
@@ -143,22 +141,17 @@ class Menu extends Phaser.Scene {
                 duration: 300,
             })
         });
-
         this.about.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
-            this.scene.transition({
-                target: "ContactScene",
-                moveAbove: true,
-                duration: 300,
-            })
+           this.scene.transition({
+            target: "ContactScene",
+            moveAbove: true,
+            duration: 300,
+        })
         });
 
     }
 
     update() {
-
-        if(this.input.activePointer.isDown){
-            
-        }
 
         if (Phaser.Input.Keyboard.JustDown(this.upArrow)) {
             // console.log("UP CLICK");
