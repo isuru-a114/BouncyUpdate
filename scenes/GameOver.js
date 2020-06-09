@@ -166,6 +166,7 @@ class GameOver extends Phaser.Scene {
 
     //touchable
     this.btn_restart.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
+      score = 0
       this.scene.transition({
         target: "SelectLevel",
         moveAbove: true,

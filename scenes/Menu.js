@@ -142,11 +142,11 @@ class Menu extends Phaser.Scene {
             })
         });
         this.about.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
-           this.scene.transition({
-            target: "ContactScene",
-            moveAbove: true,
-            duration: 300,
-        })
+            this.scene.transition({
+                target: "ContactScene",
+                moveAbove: true,
+                duration: 300,
+            })
         });
 
     }
