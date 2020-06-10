@@ -82,7 +82,7 @@ class HelpScene extends Phaser.Scene {
         });
        
         this.input.on("pointerdown", (pointer) => {
-            if (pointer.x < 120) {
+            if (pointer.x < game.config.width/2) {
                 this.changeSlidesLeft()
             } else {
                 this.changeSlidesRight()

@@ -222,7 +222,7 @@ class Level4 extends Phaser.Scene {
             }
         }, this);
 
-        this.score = score;
+        this.score = 440;
         this.topScore = localStorage.getItem(gameOptions.localStorageName) == null ? 0 : localStorage.getItem(gameOptions.localStorageName);
         this.scoreText = this.add.text(game.config.width / 16, game.config.height / 24, this.score, {
             fontSize: '35px',

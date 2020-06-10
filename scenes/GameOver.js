@@ -125,7 +125,7 @@ class GameOver extends Phaser.Scene {
       localStorage.setItem('BSecond Best Score', localStorage.getItem('BBest Score'));
       localStorage.setItem('BBest Score', score);
       this.bestScore.setText(localStorage.getItem('BBest Score'));
-    }
+    } 
 
     // Click to play text
     // this.text_click_to_play = this.add.text(this.CONFIG.centerX/4, this.CONFIG.centerY+80, 'Click to Play');
