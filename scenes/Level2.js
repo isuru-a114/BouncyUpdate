@@ -125,7 +125,6 @@ class Level2 extends Phaser.Scene {
         this.input.on("pointerdown", (pointer) => {
             console.log(this.iscompleted)
             if (this.iscompleted == true) {
-                console.log(pointer.y)
                 this.stopPlatforms()
                 if ((pointer.x > game.config.width / 3.4 && pointer.x <= game.config.width / 1.45) && (pointer.y > game.config.height / 1.42 && pointer.y <= game.config.height / 1.25)) {
                     localStorage.setItem("L1", "C");
@@ -143,7 +142,6 @@ class Level2 extends Phaser.Scene {
 
 
         this.input.keyboard.on('keydown', function (e) {
-            // console.log(e)
             if (this.iscompleted == true) {
                 if (e.key == "ArrowRight" || e.key == "6") {
                     localStorage.setItem("L1", "C");
