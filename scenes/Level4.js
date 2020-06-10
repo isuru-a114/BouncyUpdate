@@ -194,8 +194,19 @@ class Level4 extends Phaser.Scene {
     checkGameWin() {
         if (this.score >= 450 && this.isShowPass == true) {
             score = this.score;
-            console.log("he he")
-            localStorage.setItem('BBest Score', score);
+            
+            if (score > localStorage.getItem('BBest Score')) {
+                localStorage.setItem('BThird Best Score', localStorage.getItem('BSecond Best Score'));
+                localStorage.setItem('BSecond Best Score', localStorage.getItem('BBest Score'));
+                localStorage.setItem('BBest Score', score);
+                this.bestScore.setText(localStorage.getItem('BBest Score'));
+              } else if ((localStorage.getItem('BBest Score') > score && score >= localStorage.getItem('BSecond Best Score')) || localStorage.getItem('BSecond Best Score') == 'null') {
+                localStorage.setItem('BThird Best Score', localStorage.getItem('BSecond Best Score'));
+                localStorage.setItem('BSecond Best Score', score);
+              } else if ((localStorage.getItem('BSecond Best Score') > score && score >= localStorage.getItem('BThird Best Score')) || localStorage.getItem('BThird Best Score') == 'null') {
+                localStorage.setItem('BThird Best Score', score);
+              }
+          
             /////
             // coin frame animation
             this.firework = this.physics.add.sprite(300, 290, 'firework');
