@@ -104,7 +104,7 @@ class Level4 extends Phaser.Scene {
             console.log(this.iscompleted)
             if (this.iscompleted == true) {
                 if ((pointer.x > game.config.width / 3.4 && pointer.x <= game.config.width / 1.45) && (pointer.y > game.config.height / 1.42 && pointer.y <= game.config.height / 1.25)) {
-                    localStorage.setItem("L4", "C");
+                    // localStorage.setItem("L4", "C");
                     this.scene.start("Menu");
                 }
             } else {
@@ -120,8 +120,8 @@ class Level4 extends Phaser.Scene {
         this.input.keyboard.on('keydown', function (e) {
             if (this.iscompleted == true) {
                 if (e.key == "ArrowRight" || e.key == "6") {
-                    localStorage.setItem("L1", "C");
-                    this.scene.start("Level5");
+                    // localStorage.setItem("L1", "C");
+                    this.scene.start("Menu");
                 }
             } else {
                 if (e.key == "Enter") {
