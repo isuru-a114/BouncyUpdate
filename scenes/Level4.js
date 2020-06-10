@@ -266,7 +266,8 @@ class Level4 extends Phaser.Scene {
     checkGameWin() {
         if (this.score >= 450 && this.isShowPass == true) {
             score = this.score;
-
+            console.log("he he")
+            localStorage.setItem('BBest Score', score);
             this.iscompleted = true;
             this.isShowPass = false;
             //this.scene.start("Level2")
