@@ -111,6 +111,7 @@ class Level4 extends Phaser.Scene {
                     this.scene.start("Menu");
                 }
             } else {
+                this.count = 0
                 this.movePlatforms();
             }
         }, this);
