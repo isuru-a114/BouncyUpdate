@@ -55,6 +55,8 @@ class Level4 extends Phaser.Scene {
         this.isCorrectJump = false;
         this.count = 0;
         this.tween = null;
+        this.colidePlatformIndex = 0;
+
 
         //background
         this.image = this.add.image(game.config.width / 2, game.config.height / 2, 'playBG');
@@ -90,14 +92,15 @@ class Level4 extends Phaser.Scene {
         this.ball.body.checkCollision.right = false;
         this.ball.setSize(game.config.height / 5, game.config.width / 2, false)
         let platformX = this.ball.x;
-        for (let i = 0; i < 200; i++) {
-            let platform = this.platformGroup.create(platformX, game.config.height / 4 * 3 + Phaser.Math.Between(gameOptions.platformHeightRange[0], gameOptions.platformHeightRange[1]), "ground");
+        for (var i = 0; i < 200; i++) {
+            var platform = this.platformGroup.create(platformX, game.config.height / 4 * 3 + Phaser.Math.Between(gameOptions.platformHeightRange[0], gameOptions.platformHeightRange[1]), "ground");
             platform.setOrigin(0.5, 1);
             platform.setImmovable(true);
             platform.displayWidth = Phaser.Math.Between(gameOptions.platformLengthRange[0], gameOptions.platformLengthRange[1]);
             platform.displayHeight = game.config.height / 15;
             platformX += Phaser.Math.Between(gameOptions.platformDistanceRangeLevel3[0], gameOptions.platformDistanceRangeLevel3[1]);
-            platform.setSize(game.config.height / 2.5, game.config.width / 2, false)
+            platform.setSize(game.config.height / 2, game.config.width / 2, false);
+            this.arr.push(platform)
         }
 
         this.input.on("pointerdown", (pointer) => {
@@ -125,6 +128,7 @@ class Level4 extends Phaser.Scene {
                 }
             } else {
                 if (e.key == "Enter") {
+                    this.count = 0
                     this.movePlatforms();
                 }
             }
@@ -137,19 +141,19 @@ class Level4 extends Phaser.Scene {
             }
         }, this);
 
-        this.score = 440;
+        this.score = 400;
         this.topScore = localStorage.getItem(gameOptions.localStorageName) == null ? 0 : localStorage.getItem(gameOptions.localStorageName);
         this.scoreText = this.add.text(game.config.width / 16, game.config.height / 24, this.score, {
             fontSize: '35px',
             fill: '#FFF'
         });
         this.scoreText.setText('SCORE:' + this.score);
-        this.arr = this.platformGroup.getChildren();
+
     }
 
     // method to be executed at each frame. Please notice the arguments.
     update() {
-        var isCollided = this.physics.overlap(this.platformGroup, this.ball, this.collision, null, this)
+        var isCollided = this.physics.overlap(this.platformGroup, this.ball, this.collision, null, this);
 
         if (this.iscompleted == false) {
             this.checkGameOver();
@@ -159,6 +163,7 @@ class Level4 extends Phaser.Scene {
     collision() {
         // this.sound.play('groundsound');
         this.ball.setVelocityY(-700);
+        this.ball.displayHeight = game.config.height / 12;
         if (this.hitCount == 0) {
             this.platformGroup.getChildren().forEach(function (platform) {
                 if (platform.getBounds().right < 0) {
@@ -173,6 +178,11 @@ class Level4 extends Phaser.Scene {
             }
             this.checkGameWin();
         }
+        this.count++;
+        console.log(this.colidePlatformIndex)
+        if (this.count == 4) {
+            this.breakGround(this.arr[this.colidePlatformIndex]);
+        }
     }
 
     checkGameOver() {
@@ -182,7 +192,7 @@ class Level4 extends Phaser.Scene {
     }
 
     checkGameWin() {
-        if (this.score >= 450 && this.isShowPass == true) {
+        if (this.score >= 350 && this.isShowPass == true) {
             score = this.score;
             console.log("he he")
             localStorage.setItem('BBest Score', score);
@@ -244,8 +254,15 @@ class Level4 extends Phaser.Scene {
             this.nextPlatform++;
             this.hitCount++;
         }
-        this.count++;
-        this.breakGround(this.arr[this.count]);
+        // var timer = this.time.addEvent({
+        //     delay: 5000,                // ms
+        //     callback:this.breakGround(this.arr[this.count]),
+        //     //args: [],
+        //     // callbackScope: thisArg,
+        //     loop: true
+        // });
+        // this.count++;
+
     }
 
     // update the score
@@ -264,6 +281,10 @@ class Level4 extends Phaser.Scene {
 
     stopPlatforms() {
         this.platformGroup.setVelocityX(0);
+        if (this.arr[this.colidePlatformIndex].x < 0) {
+            console.log(this.arr[this.colidePlatformIndex].x)
+            this.colidePlatformIndex++;
+        }
     }
 
     getRightmostPlatform() {
@@ -284,51 +305,47 @@ class Level4 extends Phaser.Scene {
     }
 
     breakGround(platform) {
-        this.timedEvent = this.time.addEvent({
-            delay: 9500, callback: function () {
-                platform.setFrame(1);
-                var slice2 = this.add.sprite(platform.x, platform.y, "ground", 2);
-                slice2.displayHeight = 153;
-                slice2.displayWidth = 153;
-                // slice2.angle = this.platform.angle;
-                slice2.setOrigin(0.5, 1)
+        platform.setFrame(1);
+        var slice2 = this.add.sprite(platform.x, platform.y, "ground", 2);
+        slice2.displayHeight = 153;
+        slice2.displayWidth = 153;
+        // slice2.angle = this.platform.angle;
+        slice2.setOrigin(0.5, 1)
 
-                // break board
-                this.tween = this.tweens.add({
+        // break board
+        this.tween = this.tweens.add({
 
-                    // adding the knife to tween targets
-                    targets: [platform, slice2],
+            // adding the knife to tween targets
+            targets: [platform, slice2],
 
-                    // y destination
-                    y: game.config.height + platform.height,
+            // y destination
+            y: game.config.height + platform.height,
 
-                    // x destination
-                    x: {
+            // x destination
+            x: {
+                // running a function to get different x ends for each slice according to frame number
+                getEnd: function (platform, key, value) {
+                    return Phaser.Math.Between(0, game.config.width / 2) + (game.config.width / 2 * (platform.frame.name - 1));
+                }
+            },
 
-                        // running a function to get different x ends for each slice according to frame number
-                        getEnd: function (platform, key, value) {
-                            return Phaser.Math.Between(0, game.config.width / 2) + (game.config.width / 2 * (platform.frame.name - 1));
-                        }
-                    },
+            // rotation destination, in radians
+            angle: 45,
 
-                    // rotation destination, in radians
-                    angle: 45,
+            // tween duration
+            duration: gameOptions.throwSpeed * 6,
 
-                    // tween duration
-                    duration: gameOptions.throwSpeed * 6,
+            // callback scope
+            callbackScope: this,
 
-                    // callback scope
-                    callbackScope: this,
+            // function to be executed once the tween has been completed
+            // onComplete: function (tween) {
 
-                    // function to be executed once the tween has been completed
-                    // onComplete: function (tween) {
-
-                    //     // restart the game
-                    //     this.scene.start("Level2")
-                    // }
-                });
-            }, callbackScope: this, loop: true
+            //     // restart the game
+            //     this.scene.start("Level2")
+            // }
         });
+        this.colidePlatformIndex++;
     }
 
     moveForward(platform) {
