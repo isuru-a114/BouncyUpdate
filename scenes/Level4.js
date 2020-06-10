@@ -141,7 +141,7 @@ class Level4 extends Phaser.Scene {
             }
         }, this);
 
-        this.score = 400;
+        this.score = 350;
         this.topScore = localStorage.getItem(gameOptions.localStorageName) == null ? 0 : localStorage.getItem(gameOptions.localStorageName);
         this.scoreText = this.add.text(game.config.width / 16, game.config.height / 24, this.score, {
             fontSize: '35px',
@@ -192,7 +192,7 @@ class Level4 extends Phaser.Scene {
     }
 
     checkGameWin() {
-        if (this.score >= 350 && this.isShowPass == true) {
+        if (this.score >= 450 && this.isShowPass == true) {
             score = this.score;
             console.log("he he")
             localStorage.setItem('BBest Score', score);
