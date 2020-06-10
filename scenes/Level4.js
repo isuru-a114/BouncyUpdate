@@ -245,7 +245,6 @@ class Level4 extends Phaser.Scene {
             this.hitCount++;
         }
         this.count++;
-        console.log(this.iscompleted);
         this.breakGround(this.arr[this.count]);
     }
 
