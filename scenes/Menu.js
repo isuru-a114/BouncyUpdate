@@ -121,6 +121,7 @@ class Menu extends Phaser.Scene {
 
         // for tounchble 
         this.btn_play.setInteractive().on('pointerdown', (pointer, localX, localY, event) => {
+            score = 0
             this.scene.transition({
                 target: "SelectLevel",
                 moveAbove: true,
