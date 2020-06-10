@@ -190,7 +190,7 @@ class Level3 extends Phaser.Scene {
     }
 
     checkGameWin() {
-        if (this.score >= 25 && this.isShowPass == true) {
+        if (this.score >= 75 && this.isShowPass == true) {
             score = this.score;
             /////
             // coin frame animation
