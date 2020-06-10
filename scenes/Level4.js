@@ -316,7 +316,7 @@ class Level4 extends Phaser.Scene {
 
     performGameOver() {
         score = this.score;
-        localStorage.setItem(gameOptions.localStorageName, Math.max(this.score, this.topScore));
+        // localStorage.setItem(gameOptions.localStorageName, Math.max(this.score, this.topScore));
         if (!this.gotoNextLevel) {
             this.scene.start("GameOver");
         }
